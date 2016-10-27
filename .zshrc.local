@@ -1,0 +1,37 @@
+alias 2..="cd ../../.."
+alias 3..="cd ../../.."
+alias 4..="cd ../../../.."
+alias 5..="cd ../../../../.."
+
+export USE_CCACHE=1
+
+export PAGER="less -r"
+export QEMU_AUDIO_DRV=none
+
+# set compose key
+setxkbmap -option compose:lwin
+
+function! cgrep() {
+	grep -rnH \
+		--binary-files=without-match \
+		--exclude-dir=html \
+		--exclude-dir=doc \
+		--exclude-dir=.git \
+		--exclude-dir=.svn "$@" .
+}
+alias gr=cgrep
+
+function! objectdump() {
+  objdump -ldSC $1 | vim -
+}
+alias od=objectdump
+
+function! cvim() {
+  file="$(echo "$1" | cut -d ':' -f 1)"
+  line="$(echo "$1" | cut -d ':' -f 2)"
+  vim $file +$line
+}
+
+export XDG_CONFIG_HOME="/home/steffen/.config/"
+source $HOME/.zshrc.emacs
+
