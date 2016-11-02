@@ -14,6 +14,7 @@ ff02::2 ip6-allrouters
 127.0.0.1 aus5.mozilla.org
 127.0.0.1 safebrowsing.google.com
 127.0.0.1 shavar.services.mozilla.com
+127.0.0.1 tracking.services.mozilla.com
 
 # https://adaway.org/hosts.txt
 # [General]
