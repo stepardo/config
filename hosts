@@ -9,6 +9,7 @@ ff02::2 ip6-allrouters
 
 # my personal findings
 127.0.0.1 ws-eu.amazon-adsystem.com 
+127.0.0.1 1.f.ix.de
 # firefox privacy leaks (https://www.kuketz-blog.de/icecat-der-bessere-firefox-fuer-android/)
 127.0.0.1 app.adjust.com
 127.0.0.1 switchboard-server.dev.mozaws.net
