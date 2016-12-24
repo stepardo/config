@@ -8,6 +8,11 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
 # my personal findings
+127.0.0.1 emetriq.de
+127.0.0.1 dyn.emetriq.de
+127.0.0.1 ads.golem.de
+127.0.0.1 business-informant.de
+127.0.0.1 links.business-informant.de
 127.0.0.1 ws-eu.amazon-adsystem.com 
 127.0.0.1 1.f.ix.de
 127.0.0.1 ads-au.onelouder.com
