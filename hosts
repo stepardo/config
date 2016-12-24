@@ -14,6 +14,14 @@ ff02::2 ip6-allrouters
 127.0.0.1 business-informant.de
 127.0.0.1 links.business-informant.de
 127.0.0.1 ws-eu.amazon-adsystem.com 
+127.0.0.1 api.accounts.firefox.com
+127.0.0.1 aus5.mozilla.org
+127.0.0.1 balrog-aus5.r53-2.services.mozilla.com
+127.0.0.1 sync-217-us-west-2.sync.services.mozilla.com
+127.0.0.1 token.services.mozilla.com
+127.0.0.1 push.services.mozilla.com
+127.0.0.1 autopush.prod.mozaws.net
+127.0.0.1 ws-eu.amazon-adsystem.com
 127.0.0.1 1.f.ix.de
 127.0.0.1 ads-au.onelouder.com
 127.0.0.1 pagead2.googlesyndication.com
@@ -81,7 +89,7 @@ ff02::2 ip6-allrouters
 127.0.0.1 adserver.ubiyoo.com
 127.0.0.1 c753738.r38.cf2.rackcdn.com
 127.0.0.1 edge.reporo.net
-127.0.0.1 ads.n-ws.org 
+127.0.0.1 ads.n-ws.org
 127.0.0.1 adultmoda.com
 127.0.0.1 ads.smartdevicemedia.com
 127.0.0.1 b.scorecardresearch.com
@@ -4578,7 +4586,7 @@ ff02::2 ip6-allrouters
 0.0.0.0 zafiti01.webtrekk-us.net
 0.0.0.0 triggers.wfxtriggers.com
 0.0.0.0 3165.tm.zedo.com
-0.0.0.0 www.zergnet.com 
+0.0.0.0 www.zergnet.com
 # [Amazon.com][AS16509][54.240.0.0 - 54.255.255.255]
 0.0.0.0 d.254a.com
 0.0.0.0 kwserver.adhispanic.com
@@ -17906,4 +17914,3 @@ ff02::2 ip6-allrouters
 127.0.0.1 zintext.com
 127.0.0.1 zmedia.com
 127.0.0.1 zv1.november-lax.com
-
