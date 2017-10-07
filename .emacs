@@ -1,19 +1,3 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("3038a172e5b633d0b1ee284e6520a73035d0cb52f28b1708e22b394577ad2df1" "71ecffba18621354a1be303687f33b84788e13f40141580fa81e7840752d31bf" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "97d039a52cfb190f4fd677f02f7d03cf7dbd353e08ac8a0cb991223b135ac4e6" default)))
- '(safe-local-variable-values (quote ((org-export-allow-BIND . t)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -117,6 +101,13 @@
 (after 'evil
   (setq evil-leader/in-all-states t)) ; leader
 
+(require-package 'swiper)
+
+(define-key evil-normal-state-map (kbd "*")
+  (lambda () (interactive) (swiper (format "\\<%s\\>" (thing-at-point 'symbol)))))
+(define-key evil-normal-state-map (kbd "#")
+  (lambda () (interactive) (swiper (format "\\<%s\\>" (thing-at-point 'word)))))
+
 (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
 (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
 (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
@@ -135,6 +126,8 @@
 
 ;; dont cry when I do :W instead of :w
 (evil-ex-define-cmd "W" 'save-buffer)
+;; dont quit emacs when I :q
+(evil-ex-define-cmd "q" 'kill-buffer)
 
 ;; optional: this is the evil state that evil-magit will use
 ;; (setq evil-magit-state 'normal)
@@ -169,16 +162,18 @@
          "* TODO %? %^G\nEntered on %U\n")
         ("j" "Journal" entry (file+datetree
                               (concat org-directory "journal.org"))
-         "%? %^G\nEntered on %U")
+         "* %? %^G\nEntered on %U")
         ("n" "Note" entry (file+headline
                            (concat org-directory "gtd.org") "Notes")
-         "%?\nEntered on %U\n")
+         "* %?\nEntered on %U\n")
         ("c" "Add to currently clocked item" item (clock)
-         "%?\n")
+         "* %?\n")
         ))
 
 ;; Cosmetics
-(load-theme 'suscolors t) ;; 'inkpot is also a great choice
+(require-package 'color-theme-modern)
+(load-theme 'blue-sea)
+;;(load-theme 'suscolors t) ;; 'inkpot is also a great choice
 (setq evil-emacs-state-cursor '("red" box))
 (setq evil-normal-state-cursor '("green" box))
 (setq evil-visual-state-cursor '("orange" box))
@@ -244,7 +239,18 @@
   '(setq undo-tree-save-history t))
 
 ;; make C-t be C-x
-(keyboard-translate ?\C-t ?\C-x)
-(global-set-key (kbd "C-t") ctl-x-map)
+;;(keyboard-translate ?\C-t ?\C-x)
+;;(global-set-key (kbd "C-t") ctl-x-map)
+
+;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
+(custom-set-variables
+  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+
+;; create the autosave dir if necessary, since emacs won't.
+(make-directory "~/.emacs.d/autosaves/" t)
+
+; prepare for emacsclient
+(server-start)
 
 ;; end of file
