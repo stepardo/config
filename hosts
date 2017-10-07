@@ -25,4 +25,10 @@
 127.0.0.1 safebrowsing.google.com
 127.0.0.1 shavar.services.mozilla.com
 127.0.0.1 tracking.services.mozilla.com
+# cliqz, another firefox tracking thingy. Firefox clearly resides on the dark side now...
+127.0.0.1 hpn-collector.cliqz.com
+127.0.0.1 hpn-sign.cliqz.com
+127.0.0.1 cdn.cliqz.com
+127.0.0.1 safe-browsing.cliqz.com
+127.0.0.1 safe-browsing-quorum.cliqz.com
 
