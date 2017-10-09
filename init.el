@@ -63,22 +63,19 @@
 (setq-default lua-indent-level 2)
 
 (use-package saveplace
-             :demand t
-             :ensure t
-             :config
-             (progn
-               (setq save-place-file "~/.emacs.d/saveplace") ;; remember cursor positions of open files
-               (setq-default save-place t)
-               ))
+  :demand t
+  :ensure t
+  :config
+  (progn
+    (setq save-place-file "~/.emacs.d/saveplace") ;; remember cursor positions of open files
+    (setq-default save-place t)
+    ))
 
 ;; delete trailing whitespace automatically on save
 ;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set c++-mode for files without extension
 (setq default-major-mode 'c++-mode)
-
-;; allow to send an escape-code in ansi-term
-(add-to-list 'term-bind-key-alist '("C-c C-e" . term-send-escape))
 
 ;;; esc quits, used for evil-mode
 (defun minibuffer-keyboard-quit ()
@@ -168,33 +165,33 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (setq-default evil-escape-delay 0.2)
     (evil-escape-mode)))
 
-(modify-syntax-entry ?_ "w")
+;;(modify-syntax-entry ?_ "w")
 
 (use-package evil-visualstar
-             :demand t
-             :ensure t)
+  :demand t
+  :ensure t)
 
 (use-package evil-indent-textobject
-             :demand t
-             :ensure t)
+  :demand t
+  :ensure t)
 
 (use-package evil-surround
-             :demand t
-             :ensure t
-             :config
-             (global-evil-surround-mode t))
+  :demand t
+  :ensure t
+  :config
+  (global-evil-surround-mode t))
 
 (use-package evil-matchit
-             :demand t
-             :ensure t
-             :config
-             (global-evil-matchit-mode t))
+  :demand t
+  :ensure t
+  :config
+  (global-evil-matchit-mode t))
 
 (use-package evil-search-highlight-persist
-             :demand t
-             :ensure t
-             :config
-             (global-evil-search-highlight-persist t))
+  :demand t
+  :ensure t
+  :config
+  (global-evil-search-highlight-persist t))
 
 ;; dont use evil in ansi-term
 ;; disabled- can temporarily disable it with C-z
@@ -215,49 +212,49 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; org-mode - this is why I am here and not in vim
 (use-package org
-             :demand t
-             :ensure t
-             :config
-             (progn
-               (cond
-                ((string= system-name "charon")
-                 (progn
-                   (setq org-agenda-files (list "~/org/journal.org"))
-                   (setq org-directory "~/org")))
-                ((string= system-name "dione")
-                 (progn
-                   (setq org-agenda-files (list "~/kk/org/worklog.org"
-                                                "~/kk/org/journal.org"
-                                                "~/kk/org/gtd.org"))
+  :demand t
+  :ensure t
+  :config
+  (progn
+    (cond
+     ((string= system-name "charon")
+      (progn
+        (setq org-agenda-files (list "~/org/journal.org"))
+        (setq org-directory "~/org")))
+     ((string= system-name "dione")
+      (progn
+        (setq org-agenda-files (list "~/kk/org/worklog.org"
+                                     "~/kk/org/journal.org"
+                                     "~/kk/org/gtd.org"))
 
-                   (setq org-directory "~/kk/org/")))
-                ((t)
-                 (message
-                  "Warning: Cannot properly setup org as this is an unknown host")))
+        (setq org-directory "~/kk/org/")))
+     ((t)
+      (message
+       "Warning: Cannot properly setup org as this is an unknown host")))
 
-               (define-key global-map "\C-cl" 'org-store-link)
-               (define-key global-map "\C-ca" 'org-agenda)
-               (setq org-log-done t)
-               (setq org-log-repeat 'time)
+    (define-key global-map "\C-cl" 'org-store-link)
+    (define-key global-map "\C-ca" 'org-agenda)
+    (setq org-log-done t)
+    (setq org-log-repeat 'time)
 
-               (setq org-default-notes-file (concat org-directory "/notes.org"))
-               ;;(define-key global-map "\C-cc" 'org-capture)
+    (setq org-default-notes-file (concat org-directory "/notes.org"))
+    ;;(define-key global-map "\C-cc" 'org-capture)
 
-               (setq org-capture-templates
-                     '(("t" "Todo" entry (file+headline
-                                          (concat org-directory "gtd.org") "Tasks")
-                        "* TODO %? %^G\nEntered on %U\n")
-                       ("j" "Journal" entry (file+datetree
-                                             (concat org-directory "journal.org"))
-                        "* %? %^G\nEntered on %U")
-                       ("n" "Note" entry (file+headline
-                                          (concat org-directory "gtd.org") "Notes")
-                        "* %?\nEntered on %U\n")
-                       ("c" "Add to currently clocked item" item (clock)
-                        "* %?\n")
-                       ))
+    (setq org-capture-templates
+          '(("t" "Todo" entry (file+headline
+                               (concat org-directory "gtd.org") "Tasks")
+             "* TODO %? %^G\nEntered on %U\n")
+            ("j" "Journal" entry (file+datetree
+                                  (concat org-directory "journal.org"))
+             "* %? %^G\nEntered on %U")
+            ("n" "Note" entry (file+headline
+                               (concat org-directory "gtd.org") "Notes")
+             "* %?\nEntered on %U\n")
+            ("c" "Add to currently clocked item" item (clock)
+             "* %?\n")
+            ))
 
-               ))
+    ))
 
 ;; Cosmetics
 ;;(use-package 'color-theme-modern)
@@ -299,11 +296,15 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package multi-term
   :ensure t
   :demand t
-  :disabled)
+  :config
+  (progn
+    ;; allow to send an escape-code in ansi-term
+    (add-to-list 'term-bind-key-alist '("C-c C-e" . term-send-escape))
+    ))
 
 ;; show fill-column in prog-modes and org-mode
 (use-package fill-column-indicator
-             :demand t)
+  :demand t)
 
 (add-hook 'prog-mode-hook (lambda ()
                            (turn-on-auto-fill)
@@ -312,73 +313,73 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; have variables color coded
 (use-package color-identifiers-mode
-             :demand t
-             :config
-             (global-color-identifiers-mode))
+  :demand t
+  :config
+  (global-color-identifiers-mode))
 
 ;; have delimiters color coded
 (use-package rainbow-delimiters
-             :demand t
-             :config
-             (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  :demand t
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package ivy
-             :ensure t
-             :demand t
-             :config (progn
-                       (ivy-mode 1)
-                       (setq ivy-use-virtual-buffers t)
-                       (setq ivy-count-format "(%d/%d) ")
-                       (define-key ivy-minibuffer-map
-                         (kbd "<C-return>") 'ivy-immediate-done)))
+  :ensure t
+  :demand t
+  :config (progn
+            (ivy-mode 1)
+            (setq ivy-use-virtual-buffers t)
+            (setq ivy-count-format "(%d/%d) ")
+            (define-key ivy-minibuffer-map
+              (kbd "<C-return>") 'ivy-immediate-done)))
 
 (use-package counsel
-             :demand t
-             :ensure t
-             :config
-             (progn
-               (global-set-key (kbd "C-c l") 'counsel-locate)
-               (global-set-key (kbd "C-c m") 'counsel-imenu)
-               (global-set-key (kbd "C-c _") 'counsel-git-grep) ;; Quickly open external
-               (global-set-key (kbd "M-x")   'counsel-M-x)
-               (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-               (global-set-key (kbd "C-c g") 'counsel-git)
-               (global-set-key (kbd "C-c j") 'counsel-git-grep)
-               (global-set-key (kbd "C-c k") 'counsel-ag)
-               (global-set-key (kbd "C-x l") 'counsel-locate)
-               (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-               (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-               ))
+  :demand t
+  :ensure t
+  :config
+  (progn
+    (global-set-key (kbd "C-c l") 'counsel-locate)
+    (global-set-key (kbd "C-c m") 'counsel-imenu)
+    (global-set-key (kbd "C-c _") 'counsel-git-grep) ;; Quickly open external
+    (global-set-key (kbd "M-x")   'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "C-c g") 'counsel-git)
+    (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    (global-set-key (kbd "C-c k") 'counsel-ag)
+    (global-set-key (kbd "C-x l") 'counsel-locate)
+    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+    ))
 
 (use-package swiper
-             :demand t
-             :ensure t
-             :bind ("C-s" . swiper)
-             :config
-             (progn
-               (setq enable-recursive-minibuffers t)
-               (global-set-key "\C-s" 'swiper)
-               (global-set-key (kbd "C-c C-r") 'ivy-resume)
-               (global-set-key (kbd "<f6>") 'ivy-resume)
-               ))
+  :demand t
+  :ensure t
+  :bind ("C-s" . swiper)
+  :config
+  (progn
+    (setq enable-recursive-minibuffers t)
+    (global-set-key "\C-s" 'swiper)
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    ))
 
 ;; lua-mode required for anything LUA
 (use-package lua-mode
-             :demand t)
+  :demand t)
 
 (use-package easy-hugo
-             :demand t
-             :config
-             (progn
-               (setq easy-hugo-basedir "/home/steffen/web/stepardo.de/")
-               (setq easy-hugo-postdir "content/blog")
-               (setq easy-hugo-url "https://stepardo.de")
-               (setq easy-hugo-sshdomain "rpi")
-               (setq easy-hugo-root "/var/stepardo.de")
-               (setq easy-hugo-previewtime "300")
-               (define-key global-map (kbd "C-c C-e") 'easy-hugo)
-               (setq easy-hugo-default-ext ".org")
-               ))
+  :demand t
+  :config
+  (progn
+    (setq easy-hugo-basedir "/home/steffen/web/stepardo.de/")
+    (setq easy-hugo-postdir "content/blog")
+    (setq easy-hugo-url "https://stepardo.de")
+    (setq easy-hugo-sshdomain "rpi")
+    (setq easy-hugo-root "/var/stepardo.de")
+    (setq easy-hugo-previewtime "300")
+    (define-key global-map (kbd "C-c C-e") 'easy-hugo)
+    (setq easy-hugo-default-ext ".org")
+    ))
 
 ;; .cfg files are mostly LUA for me
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
