@@ -148,17 +148,15 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package evil-magit
   :ensure t
-  :demand t
   :config
   (setq evil-magit-state 'motion))
 
 (use-package evil-org
-  :ensure t
-  :demand t)
+  :ensure t)
 
 (use-package evil-escape-mode
+  :if (not (string= system-name "localhost"))
   :ensure t
-  :demand t
   :config
   (progn
     (setq-default evil-escape-key-sequence "kj")
@@ -168,27 +166,22 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;;(modify-syntax-entry ?_ "w")
 
 (use-package evil-visualstar
-  :demand t
   :ensure t)
 
 (use-package evil-indent-textobject
-  :demand t
   :ensure t)
 
 (use-package evil-surround
-  :demand t
   :ensure t
   :config
   (global-evil-surround-mode t))
 
 (use-package evil-matchit
-  :demand t
   :ensure t
   :config
   (global-evil-matchit-mode t))
 
 (use-package evil-search-highlight-persist
-  :demand t
   :ensure t
   :config
   (global-evil-search-highlight-persist t))
@@ -212,7 +205,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; org-mode - this is why I am here and not in vim
 (use-package org
-  :demand t
   :ensure t
   :config
   (progn
@@ -271,14 +263,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package powerline-evil
   :ensure t
-  :demand t
   :disabled
   :config
   (powerline-evil-vim-color-theme))
 
+; do not load this on my phone
 (use-package projectile
+  :if (not (string= system-name "localhost"))
   :ensure t
-  :demand t
   :config
   (progn
     (projectile-global-mode t)
@@ -286,7 +278,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package terminal-here
   :ensure t
-  :demand t
   :config
   (progn
     (setq terminal-here-terminal-command (list "/usr/bin/konsole"))
@@ -295,7 +286,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; XXX: candidate for elimination because ansi-term seems to work great
 (use-package multi-term
   :ensure t
-  :demand t
   :config
   (progn
     ;; allow to send an escape-code in ansi-term
@@ -364,11 +354,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ))
 
 ;; lua-mode required for anything LUA
-(use-package lua-mode
-  :demand t)
+(use-package lua-mode)
 
 (use-package easy-hugo
-  :demand t
   :config
   (progn
     (setq easy-hugo-basedir "/home/steffen/web/stepardo.de/")
