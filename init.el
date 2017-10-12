@@ -218,7 +218,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
                                      "~/kk/org/gtd.org"))
 
         (setq org-directory "~/kk/org/")))
-     ((t)
+     (t
       (progn
         (setq org-directory "~/org")
         (message "Warning: Cannot properly setup org as this is an unknown host"))))
