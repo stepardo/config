@@ -1,0 +1,2 @@
+# pebble stuff
+export PATH=~/pebble-dev/pebble-sdk-4.2-linux64/bin:$PATH
