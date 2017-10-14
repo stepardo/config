@@ -33,5 +33,13 @@ function! cvim() {
 }
 
 export XDG_CONFIG_HOME="/home/steffen/.config/"
-source $HOME/.zshrc.emacs
+if [ `hostname` == "charon" ];
+then
+  source $HOME/.zshrc.charon
+fi
+
+if [ -e $HOME/.zshrc.emacs ];
+then
+  source $HOME/.zshrc.emacs
+fi
 
