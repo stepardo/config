@@ -43,27 +43,25 @@
       inhibit-startup-echo-area-message t
       inhibit-startup-message t)
 
-(if (window-system)
-    (progn
-      ;; hide toolbar
-      (tool-bar-mode -1)
-      ;; hide scrollbars
-      (scroll-bar-mode -1)
-      ;; Cosmetics
-      ;;(use-package 'color-theme-modern)
-      ;;(load-theme 'blue-mood) ; cobalt
-      ;;(load-theme 'blue-sea)
-      (load-theme 'suscolors t) ;; 'inkpot is also a great choice
-      ;; powerline
-      (use-package powerline
-        :demand t
-        :disabled)
+(when (window-system)
+  ;; hide toolbar
+  (tool-bar-mode -1)
+  ;; hide scrollbars
+  (scroll-bar-mode -1)
+  ;; Cosmetics
+  ;;(use-package 'color-theme-modern)
+  ;;(load-theme 'blue-mood) ; cobalt
+  ;;(load-theme 'blue-sea)
+  (load-theme 'suscolors t) ;; 'inkpot is also a great choice
+  ;; powerline
+  (use-package powerline
+    :demand t
+    :disabled)
 
-      (use-package powerline-evil
-        :disabled
-        :config
-        (powerline-evil-vim-color-theme))))
-
+  (use-package powerline-evil
+    :disabled
+    :config
+    (powerline-evil-vim-color-theme)))
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
@@ -229,20 +227,16 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (progn
     (cond
      ((string= system-name "charon")
-      (progn
-        (setq org-agenda-files (list "~/org/journal.org"))
-        (setq org-directory "~/org")))
+      (setq org-agenda-files (list "~/org/journal.org")
+            org-directory "~/org"))
      ((string= system-name "dione")
-      (progn
-        (setq org-agenda-files (list "~/kk/org/worklog.org"
-                                     "~/kk/org/journal.org"
-                                     "~/kk/org/gtd.org"))
-
-        (setq org-directory "~/kk/org/")))
+      (setq org-agenda-files (list "~/kk/org/worklog.org"
+                                   "~/kk/org/journal.org"
+                                   "~/kk/org/gtd.org")
+            org-directory "~/kk/org/"))
      (t
-      (progn
-        (setq org-directory "~/org")
-        (message "Warning: Cannot properly setup org as this is an unknown host"))))
+      (setq org-directory "~/org")
+      (message "Warning: Cannot properly setup org as this is an unknown host")))
 
     (define-key global-map "\C-cl" 'org-store-link)
     (define-key global-map "\C-ca" 'org-agenda)
@@ -283,9 +277,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; XXX: candidate for elimination because ansi-term seems to work great
 (use-package multi-term
   :config
-  (progn
-    ;; allow to send an escape-code in ansi-term
-    (add-to-list 'term-bind-key-alist '("C-c C-e" . term-send-escape)))) 
+  ;; allow to send an escape-code in ansi-term
+  (add-to-list 'term-bind-key-alist '("C-c C-e" . term-send-escape)))
 
 ;; show fill-column in prog-modes and org-mode
 (use-package fill-column-indicator)
@@ -316,8 +309,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (progn
     (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) ")
+    (setq ivy-use-virtual-buffers t
+          ivy-count-format "(%d/%d) ")
     (advice-add 'imenu :before 'my-save-imenu-jump)
     (define-key ivy-minibuffer-map
       (kbd "<C-return>") 'ivy-immediate-done)))
@@ -356,14 +349,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package easy-hugo
   :config
   (progn
-    (setq easy-hugo-basedir "/home/steffen/web/stepardo.de/")
-    (setq easy-hugo-postdir "content/blog")
-    (setq easy-hugo-url "https://stepardo.de")
-    (setq easy-hugo-sshdomain "rpi")
-    (setq easy-hugo-root "/var/stepardo.de")
-    (setq easy-hugo-previewtime "300")
-    ;(define-key global-map (kbd "C-c C-e") 'easy-hugo)
-    (setq easy-hugo-default-ext ".org")
+    (setq easy-hugo-basedir "/home/steffen/web/stepardo.de/"
+          easy-hugo-postdir "content/blog"
+          easy-hugo-url "https://stepardo.de"
+          easy-hugo-sshdomain "rpi"
+          easy-hugo-root "/var/stepardo.de"
+          easy-hugo-previewtime "300"
+          easy-hugo-default-ext ".org")
+    ;; (define-key global-map (kbd "C-c C-e") 'easy-hugo)
     ))
 
 ;; .cfg files are mostly LUA for me
