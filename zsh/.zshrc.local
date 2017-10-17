@@ -29,7 +29,7 @@ alias od=objectdump
 function! cvim() {
   file="$(echo "$1" | cut -d ':' -f 1)"
   line="$(echo "$1" | cut -d ':' -f 2)"
-  vim $file +$line
+  emacsclient -nw "+$line" "$file"
 }
 
 export XDG_CONFIG_HOME="/home/steffen/.config/"
@@ -43,3 +43,9 @@ then
   source $HOME/.zshrc.emacs
 fi
 
+if [ -e $HOME/.zshrc.kk ];
+then
+  source $HOME/.zshrc.kk
+fi
+
+# alias pp="qdbus org.kde.amarok /Player org.freedesktop.MediaPlayer.PlayPause"
