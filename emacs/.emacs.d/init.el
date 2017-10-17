@@ -28,60 +28,84 @@
 (require 'async-bytecomp)
 (async-bytecomp-package-mode 1)
 
+;(add-to-list 'load-path (concat user-emacs-directory "config")) 
+;; (require 'mu4e-conf)
+
+;; make C-t be C-x
+;;(keyboard-translate ?\C-t ?\C-x)
+;;(global-set-key (kbd "C-t") ctl-x-map)
+
+;; create the autosave dir if necessary, since emacs won't.
+(make-directory "~/.emacs.d/autosaves/" t)
+
 ;; hide startup message
 (setq inhibit-splash-screen t
       inhibit-startup-echo-area-message t
       inhibit-startup-message t)
 
-;; hide toolbar
-(tool-bar-mode -1)
-;; hide scrollbars
-(scroll-bar-mode -1)
+(if (window-system)
+    (progn
+      ;; hide toolbar
+      (tool-bar-mode -1)
+      ;; hide scrollbars
+      (scroll-bar-mode -1)
+      ;; Cosmetics
+      ;;(use-package 'color-theme-modern)
+      ;;(load-theme 'blue-mood) ; cobalt
+      ;;(load-theme 'blue-sea)
+      (load-theme 'suscolors t) ;; 'inkpot is also a great choice
+      ;; powerline
+      (use-package powerline
+        :demand t
+        :disabled)
 
-;; match parentesis
-(show-paren-mode t)
+      (use-package powerline-evil
+        :disabled
+        :config
+        (powerline-evil-vim-color-theme))))
+
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-(setq standard-indent 2)
-(setq-default indent-tabs-mode nil)
+(setq make-backup-files t
+      backup-by-copying t      ; don't clobber symlinks
+      backup-directory-alist
+      '(("." . "~/.saves"))    ; don't litter my fs tree
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t       ; use versioned backups
+      ; scroll like vim
+      scroll-step 1
+      scroll-margin 1
+      scroll-conservatively 9999)
 
-(setq make-backup-files t)
-(setq version-control t)
-(setq
-   backup-by-copying t      ; don't clobber symlinks
-   backup-directory-alist
-    '(("." . "~/.saves"))    ; don't litter my fs tree
-   delete-old-versions t
-   kept-new-versions 6
-   kept-old-versions 2
-   version-control t)       ; use versioned backups
+(setq-default standard-indent 2
+              indent-tabs-mode nil
+              fill-column 78
+              c-basic-offset 2
+              lua-indent-level 2)
 
-(line-number-mode 1)
-(column-number-mode 1)
 
-;; scroll like vim
-(setq scroll-step 1)
-(setq scroll-margin 1)
-(setq scroll-conservatively 9999)
+(show-paren-mode)   ; match parentesis
+(global-hl-line-mode) ; highlight line
+(line-number-mode)
+(column-number-mode)
+(display-time-mode)
 
-(setq-default fill-column 78)
-(setq-default c-basic-offset 2)
-(setq-default lua-indent-level 2)
+;; set c++-mode for files without extension
+(setq major-mode 'c++-mode)
+
+;; delete trailing whitespace automatically on save
+;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package saveplace
   :demand t
   :config
   (progn
-    (setq save-place-file "~/.emacs.d/saveplace") ;; remember cursor positions of open files
+    (setq save-place-file "~/.emacs.d/saveplace") ; remember cursor positions of open files
     (setq-default save-place t)
     ))
-
-;; delete trailing whitespace automatically on save
-;(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; set c++-mode for files without extension
-(setq major-mode 'c++-mode)
 
 ;;; esc quits, used for evil-mode
 (defun minibuffer-keyboard-quit ()
@@ -117,8 +141,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
           evil-jumper-file  "~/.emacs.d/cache/evil-jumps"
           evil-jumper-auto-save-interval 3600
           ;; fix tab in tmux
-          evil-want-C-i-jump nil
-          )
+          evil-want-C-i-jump nil)
     ;; dont cry when I do :W instead of :w
     (evil-ex-define-cmd "W" 'save-buffer)
     ;; dont quit emacs when I :q
@@ -167,8 +190,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (setq-default evil-escape-key-sequence "kj")
     (setq-default evil-escape-delay 0.2)
     (evil-escape-mode)))
-
-;;(modify-syntax-entry ?_ "w")
 
 (use-package evil-visualstar)
 
@@ -225,13 +246,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
     (define-key global-map "\C-cl" 'org-store-link)
     (define-key global-map "\C-ca" 'org-agenda)
-    (setq org-log-done t)
-    (setq org-log-repeat 'time)
-
-    (setq org-default-notes-file (concat org-directory "/notes.org"))
     ;;(define-key global-map "\C-cc" 'org-capture)
-
-    (setq org-capture-templates
+    (setq org-log-done t
+          org-log-repeat 'time
+          org-default-notes-file (concat org-directory "/notes.org") 
+          org-capture-templates
           '(("t" "Todo" entry (file+headline
                                (concat org-directory "gtd.org") "Tasks")
              "* TODO %? %^G\nEntered on %U\n")
@@ -244,25 +263,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
             ("c" "Add to currently clocked item" item (clock)
              "* %?\n")
             ))
-
     ))
-
-;; Cosmetics
-;;(use-package 'color-theme-modern)
-;(load-theme 'blue-mood) ; cobalt
-;;(load-theme 'blue-sea)
-(load-theme 'suscolors t) ;; 'inkpot is also a great choice
-(display-time-mode t)
-
-;; powerline
-(use-package powerline
-  :demand t
-  :disabled)
-
-(use-package powerline-evil
-  :disabled
-  :config
-  (powerline-evil-vim-color-theme))
 
 ; do not load this on my phone
 (use-package projectile
@@ -284,8 +285,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (progn
     ;; allow to send an escape-code in ansi-term
-    (add-to-list 'term-bind-key-alist '("C-c C-e" . term-send-escape))
-    ))
+    (add-to-list 'term-bind-key-alist '("C-c C-e" . term-send-escape)))) 
 
 ;; show fill-column in prog-modes and org-mode
 (use-package fill-column-indicator)
@@ -307,14 +307,20 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
+(defun my-save-imenu-jump (item)
+  "WIP: Tells evil-jump to save position before jumping via imenu (or counsel-imenu)"
+  (evil--jumps-push))
+
 (use-package ivy
   :demand t
-  :config (progn
-            (ivy-mode 1)
-            (setq ivy-use-virtual-buffers t)
-            (setq ivy-count-format "(%d/%d) ")
-            (define-key ivy-minibuffer-map
-              (kbd "<C-return>") 'ivy-immediate-done)))
+  :config
+  (progn
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    (advice-add 'imenu :before 'my-save-imenu-jump)
+    (define-key ivy-minibuffer-map
+      (kbd "<C-return>") 'ivy-immediate-done)))
 
 (use-package counsel
   :demand t
@@ -371,13 +377,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (eval-after-load 'undo-tree-mode
   '(setq undo-tree-save-history t))
 
-;; make C-t be C-x
-;;(keyboard-translate ?\C-t ?\C-x)
-;;(global-set-key (kbd "C-t") ctl-x-map)
-
-;; create the autosave dir if necessary, since emacs won't.
-(make-directory "~/.emacs.d/autosaves/" t)
-
 ;; clang format -> load support if clang-format.el is installed
 ;; (on most systems it is not installed...)
 (let ((clang-format-file
@@ -390,10 +389,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (progn
       (message "clang format not installed -> not loaded")
       (message "apt-get install -y clang-format-3.8 if you want"))))
-
-(add-to-list 'load-path (concat user-emacs-directory "config"))
-
-;; (require 'mu4e-conf)
 
 (setq-default grep-command (mapconcat 'identity
                                       '("grep"
