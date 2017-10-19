@@ -95,7 +95,7 @@
 (setq major-mode 'c++-mode)
 
 ;; delete trailing whitespace automatically on save
-;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package saveplace
   :demand t
@@ -129,8 +129,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
           evil-insert-state-cursor '("red" bar)
           evil-replace-state-cursor '("red" bar)
           evil-operator-state-cursor '("red" hollow)
-          ;; make '*' and '#' search for the whole
-          ;; symbol and not only the word under the cursor, just like in vim
+          ;; make '*' and '#' search for the whole symbol and not only the
+          ;; word under the cursor, just like in vim
           evil-symbol-word-search t
           evil-shift-width 2
           ;; toggle evil-mode with C-z
