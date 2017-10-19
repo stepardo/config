@@ -97,6 +97,13 @@
 ;; delete trailing whitespace automatically on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(defun my-other-window ()
+  "Ensure evil-mode is in normal state when switching windows"
+  (interactive)
+  (evil-normal-state)
+  (other-window 1))
+(global-set-key (kbd "C-x o") 'my-other-window)
+
 (use-package saveplace
   :demand t
   :config
