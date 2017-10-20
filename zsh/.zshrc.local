@@ -32,6 +32,19 @@ function! cvim() {
   emacsclient -nw "+$line" "$file"
 }
 
+function! thinkpad_disable_keyboard ()
+{
+  id=`xinput list | grep 'AT Translated Set 2' | cut -f 2 | cut -f 2 -d =`
+  xinput float $id
+}
+
+function! thinkpad_enable_keyboard ()
+{
+  id=`xinput list | grep 'AT Translated Set 2' | cut -f 2 | cut -f 2 -d =`
+  core=`xinput list | grep 'Virtual core keyboard' | cut -f 2 | cut -f 2 -d =`
+  xinput reattach $id $core
+}
+
 export XDG_CONFIG_HOME="/home/steffen/.config/"
 if [ `hostname` == "charon" ];
 then
