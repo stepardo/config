@@ -43,6 +43,9 @@
       inhibit-startup-echo-area-message t
       inhibit-startup-message t)
 
+(use-package suscolors
+             :if (not (string= system-name "localhost")))
+
 (unless (string= system-name "localhost") ;window-system)
   ;; hide toolbar
   (tool-bar-mode -1)
