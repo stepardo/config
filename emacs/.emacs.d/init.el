@@ -10,7 +10,7 @@
 (package-initialize)
 
 ;; ensure repo cache is up to date (don't to that on slow systems...)
-(unless (string= system-name "localhost"))
+(unless (string= system-name "localhost")
     (if (file-exists-p package-user-dir)
         (package-refresh-contents)))
 
