@@ -10,17 +10,16 @@
 (package-initialize)
 
 ;; ensure repo cache is up to date (don't to that on slow systems...)
-(if (not (string= system-name "localhost"))
-    (or (file-exists-p package-user-dir)
+(unless (string= system-name "localhost"))
+    (if (file-exists-p package-user-dir)
         (package-refresh-contents)))
 
 ;; Install use-package
 (defun ensure-package-installed (package)
   "Ensure packages are installed"
-  (if (not (package-installed-p package))
-    (progn
-      (package-refresh-contents)
-      (package-install package))))
+  (unless (package-installed-p package)
+    (package-refresh-contents)
+    (package-install package)))
 
 (ensure-package-installed 'use-package)
 (setq use-package-always-ensure t)
