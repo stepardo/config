@@ -27,7 +27,7 @@
 (require 'async-bytecomp)
 (async-bytecomp-package-mode 1)
 
-;(add-to-list 'load-path (concat user-emacs-directory "config")) 
+;(add-to-list 'load-path (concat user-emacs-directory "config"))
 ;; (require 'mu4e-conf)
 
 ;; make C-t be C-x
@@ -42,7 +42,7 @@
       inhibit-startup-echo-area-message t
       inhibit-startup-message t)
 
-(when (window-system)
+(unless (string= system-name "localhost") ;window-system)
   ;; hide toolbar
   (tool-bar-mode -1)
   ;; hide scrollbars
@@ -249,7 +249,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ;;(define-key global-map "\C-cc" 'org-capture)
     (setq org-log-done t
           org-log-repeat 'time
-          org-default-notes-file (concat org-directory "/notes.org") 
+          org-default-notes-file (concat org-directory "/notes.org")
           org-capture-templates
           '(("t" "Todo" entry (file+headline
                                (concat org-directory "gtd.org") "Tasks")
@@ -441,4 +441,3 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; save sessions
 (desktop-save-mode 1)
-
