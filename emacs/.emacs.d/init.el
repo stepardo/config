@@ -1,7 +1,7 @@
 ;; keep this config clean
-(setq custom-file "~/.emacs.d/custom.el")
-(if (file-readable-p custom-file)
-    (load custom-file))
+(setq my-custom-file "~/.emacs.d/custom.el")
+(if (file-readable-p my-custom-file)
+    (load my-custom-file))
 
 (require 'package)
 
@@ -10,17 +10,16 @@
 (package-initialize)
 
 ;; ensure repo cache is up to date (don't to that on slow systems...)
-(if (not (string= system-name "localhost"))
-    (or (file-exists-p package-user-dir)
+(unless (string= system-name "localhost")
+    (if (file-exists-p package-user-dir)
         (package-refresh-contents)))
 
 ;; Install use-package
 (defun ensure-package-installed (package)
   "Ensure packages are installed"
-  (if (not (package-installed-p package))
-    (progn
+  (unless (package-installed-p package)
       (package-refresh-contents)
-      (package-install package))))
+      (package-install package)))
 
 (ensure-package-installed 'use-package)
 (setq use-package-always-ensure t)
