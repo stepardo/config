@@ -1,7 +1,7 @@
 ;; keep this config clean
-(setq custom-file "~/.emacs.d/custom.el")
-(if (file-readable-p custom-file)
-    (load custom-file))
+(setq my-custom-file "~/.emacs.d/custom.el")
+(if (file-readable-p my-custom-file)
+    (load my-custom-file))
 
 (require 'package)
 
@@ -9,18 +9,21 @@
 ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
+(defun is-slow-system ()
+  "Return t if running on a slow system, aka my phone."
+  (string= system-name "localhost"))
+
 ;; ensure repo cache is up to date (don't to that on slow systems...)
-(if (not (string= system-name "localhost"))
-    (or (file-exists-p package-user-dir)
+(unless (is-slow-system)
+    (if (file-exists-p package-user-dir)
         (package-refresh-contents)))
 
 ;; Install use-package
 (defun ensure-package-installed (package)
   "Ensure packages are installed"
-  (if (not (package-installed-p package))
-    (progn
+  (unless (package-installed-p package)
       (package-refresh-contents)
-      (package-install package))))
+      (package-install package)))
 
 (ensure-package-installed 'use-package)
 (setq use-package-always-ensure t)
@@ -43,7 +46,7 @@
       inhibit-startup-echo-area-message t
       inhibit-startup-message t)
 
-(unless (string= system-name "localhost") ;window-system)
+(unless (is-slow-system) ;window-system)
   ;; hide toolbar
   (tool-bar-mode -1)
   ;; hide scrollbars
@@ -52,6 +55,7 @@
   ;;(use-package 'color-theme-modern)
   ;;(load-theme 'blue-mood) ; cobalt
   ;;(load-theme 'blue-sea)
+  (use-package suscolors)
   (load-theme 'suscolors t) ;; 'inkpot is also a great choice
   ;; powerline
   (use-package powerline
@@ -189,7 +193,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package evil-org)
 
 (use-package evil-escape
-  :if (not (string= system-name "localhost")) ; doesn't work on android
+  :if (not (is-slow-system))
   :config
   (progn
     (setq-default evil-escape-key-sequence "kj")
@@ -268,7 +272,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ; do not load this on my phone
 (use-package projectile
-  :if (not (string= system-name "localhost"))
+  :if (not (is-slow-system))
   :config
   (progn
     (projectile-mode t)
