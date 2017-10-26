@@ -294,11 +294,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (add-to-list 'term-bind-key-alist '("C-c C-e" . term-send-escape)))
 
 ;; show fill-column in prog-modes and org-mode
-(use-package fill-column-indicator)
+(use-package fill-column-indicator
+  :if (>= emacs-major-version 25))
 
 (add-hook 'prog-mode-hook (lambda ()
                            (turn-on-auto-fill)
-                           (fci-mode)
+                           (if (boundp 'fci-mode) (fci-mode))
                            (set-fill-column 78)))
 
 ;; have variables color coded
