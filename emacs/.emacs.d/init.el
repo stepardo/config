@@ -28,8 +28,9 @@
 (ensure-package-installed 'use-package)
 (setq use-package-always-ensure t)
 
-(require 'async-bytecomp)
-(async-bytecomp-package-mode 1)
+(ignore-errors
+  (require 'async-bytecomp)
+  (async-bytecomp-package-mode 1))
 
 ;(add-to-list 'load-path (concat user-emacs-directory "config"))
 ;; (require 'mu4e-conf)
