@@ -191,6 +191,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (setq evil-magit-state 'motion))
 
+(use-package let-alist)
 (use-package evil-org)
 
 (use-package evil-escape
