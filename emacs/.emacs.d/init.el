@@ -295,7 +295,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; show fill-column in prog-modes and org-mode
 (use-package fill-column-indicator
-  :if (>= emacs-major-version 25))
+  :if (version<= "25" emacs-version))
 
 (add-hook 'prog-mode-hook (lambda ()
                            (turn-on-auto-fill)
