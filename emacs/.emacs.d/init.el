@@ -1,7 +1,7 @@
 ;; keep this config clean
-(setq my-custom-file "~/.emacs.d/custom.el")
-(if (file-readable-p my-custom-file)
-    (load my-custom-file))
+(setq custom-file "~/.emacs.d/custom.el")
+(if (file-readable-p custom-file)
+    (load custom-file))
 
 (require 'package)
 
