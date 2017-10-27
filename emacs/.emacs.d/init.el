@@ -56,8 +56,12 @@
   ;;(use-package 'color-theme-modern)
   ;;(load-theme 'blue-mood) ; cobalt
   ;;(load-theme 'blue-sea)
-  (use-package suscolors-theme)
-  (load-theme 'suscolors t) ;; 'inkpot is also a great choice
+  ;(use-package suscolors-theme)
+  ;(load-theme 'suscolors t) ;; 'inkpot is also a great choice
+  (use-package color-theme-modern
+    :config
+    (load-theme 'cobalt t))
+
   ;; powerline
   (use-package powerline
     :demand t
