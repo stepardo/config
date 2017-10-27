@@ -22,8 +22,8 @@
 (defun ensure-package-installed (package)
   "Ensure packages are installed"
   (unless (package-installed-p package)
-      (package-refresh-contents)
-      (package-install package)))
+    (package-refresh-contents)
+    (package-install package)))
 
 (ensure-package-installed 'use-package)
 (setq use-package-always-ensure t)
@@ -449,6 +449,21 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; info mode paths
 ;(add-to-list Info-default-directory-list "/usr/share/info/emacs-24/") ; dpkg -L emacs24-common-non-dfsg
+
+;; use emacs as window manager as well
+(use-package exwm
+  :if (not (is-slow-system))
+  :config
+  (progn
+    (require 'exwm-systemtray)
+    (exwm-systemtray-enable)))
+(use-package exwm-config
+  :if (not (is-slow-system))
+  :config
+  (exwm-config-default)
+  (when (boundp 'window-divider-mode)
+    (setq window-divider-default-right-width 1)
+    (window-divider-mode)))
 
 ;; save sessions
 (desktop-save-mode 1)
