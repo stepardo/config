@@ -61,4 +61,5 @@ then
   source $HOME/.zshrc.kk
 fi
 
+alias pp="emacsclient -e '(emms-pause)'"
 # alias pp="qdbus org.kde.amarok /Player org.freedesktop.MediaPlayer.PlayPause"

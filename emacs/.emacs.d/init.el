@@ -1,7 +1,7 @@
 ;; keep this config clean
-(setq custom-file "~/.emacs.d/custom.el")
-(if (file-readable-p custom-file)
-    (load custom-file))
+(setq my-custom-file "~/.emacs.d/custom.el")
+(if (file-readable-p my-custom-file)
+    (load my-custom-file))
 
 (require 'package)
 
@@ -9,8 +9,12 @@
 ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
+(defun is-slow-system ()
+  "Return t if running on a slow system, aka my phone."
+  (string= system-name "localhost"))
+
 ;; ensure repo cache is up to date (don't to that on slow systems...)
-(unless (string= system-name "localhost")
+(unless (is-slow-system)
     (if (file-exists-p package-user-dir)
         (package-refresh-contents)))
 
@@ -24,8 +28,9 @@
 (ensure-package-installed 'use-package)
 (setq use-package-always-ensure t)
 
-(require 'async-bytecomp)
-(async-bytecomp-package-mode 1)
+(ignore-errors
+  (require 'async-bytecomp)
+  (async-bytecomp-package-mode 1))
 
 ;(add-to-list 'load-path (concat user-emacs-directory "config"))
 ;; (require 'mu4e-conf)
@@ -42,7 +47,7 @@
       inhibit-startup-echo-area-message t
       inhibit-startup-message t)
 
-(unless (string= system-name "localhost") ;window-system)
+(unless (is-slow-system) ;window-system)
   ;; hide toolbar
   (tool-bar-mode -1)
   ;; hide scrollbars
@@ -51,6 +56,7 @@
   ;;(use-package 'color-theme-modern)
   ;;(load-theme 'blue-mood) ; cobalt
   ;;(load-theme 'blue-sea)
+  (use-package suscolors-theme)
   (load-theme 'suscolors t) ;; 'inkpot is also a great choice
   ;; powerline
   (use-package powerline
@@ -185,10 +191,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (setq evil-magit-state 'motion))
 
+(use-package let-alist)
 (use-package evil-org)
 
 (use-package evil-escape
-  :if (not (string= system-name "localhost")) ; doesn't work on android
+  :if (not (is-slow-system))
   :config
   (progn
     (setq-default evil-escape-key-sequence "kj")
@@ -267,7 +274,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ; do not load this on my phone
 (use-package projectile
-  :if (not (string= system-name "localhost"))
+  :if (not (is-slow-system))
   :config
   (progn
     (projectile-mode t)
@@ -287,11 +294,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (add-to-list 'term-bind-key-alist '("C-c C-e" . term-send-escape)))
 
 ;; show fill-column in prog-modes and org-mode
-(use-package fill-column-indicator)
+(use-package fill-column-indicator
+  :if (>= emacs-major-version 25))
 
 (add-hook 'prog-mode-hook (lambda ()
                            (turn-on-auto-fill)
-                           (fci-mode)
+                           (if (boundp 'fci-mode) (fci-mode))
                            (set-fill-column 78)))
 
 ;; have variables color coded
