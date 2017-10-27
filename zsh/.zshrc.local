@@ -45,6 +45,8 @@ function! thinkpad_enable_keyboard ()
   xinput reattach $id $core
 }
 
+alias swapesc="setxkbmap -option caps:swapescape"
+
 export XDG_CONFIG_HOME="/home/steffen/.config/"
 if [ `hostname` == "charon" ];
 then
