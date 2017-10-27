@@ -373,6 +373,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ;; (define-key global-map (kbd "C-c C-e") 'easy-hugo)
     ))
 
+(use-package emms
+  :if (not (string= system-name "localhost")))
+
 ;; .cfg files are mostly LUA for me
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.cfg\\'" . lua-mode))
