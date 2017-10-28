@@ -129,8 +129,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (interactive)
   (if (and delete-selection-mode transient-mark-mode mark-active)
       (setq deactivate-mark  t)
-    (when (get-buffer "*Completions*") (delete-windows-on
-                                        "*Completions*"))
+    (when (get-buffer "*Completions*")
+      (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
 
 (use-package evil
