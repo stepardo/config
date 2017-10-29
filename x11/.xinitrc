@@ -12,6 +12,9 @@ xsetroot -cursor_name left_ptr
 xset b off
 numlockx off
 
+# tap to click on thinkpads
+xinput set-prop SynPS/2 Synaptics TouchPad libinput Tapping Enabled 1
+
 # use us intl layout with altgr for umlauts, swap caps lock and escape
 setxkbmap -layout 'us(altgr-intl)' -option caps:swapescape
 
