@@ -238,12 +238,41 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; this disables the strange habit of trying to put emacs in background on C-z
 (global-unset-key (kbd "C-z"))
 
+(add-hook 'calendar-load-hook
+          (lambda ()
+            (calendar-set-date-style 'european)))
+(setq calendar-week-start-day 1
+      calendar-day-name-array ["Sonntag" "Montag" "Dienstag" "Mittwoch"
+                               "Donnerstag" "Freitag" "Samstag"]
+      calendar-month-name-array ["Januar" "Februar" "März" "April" "Mai"
+                                 "Juni" "Juli" "August" "September"
+                                 "Oktober" "November" "Dezember"])
+
+(defun my-org-journal-add-entry ()
+  "Append to current dairy entry.
+If there is no entry for today, a new one will be added"
+  (interactive)
+  (let* ((datetree-date (or (org-entry-get nil "TIMESTAMP" t)
+                            (org-read-date t nil "now")))
+         (date (org-date-to-gregorian datetree-date)))
+    (unless (file-readable-p (car org-agenda-files))
+      (error "file org-agenda-file not set, cannot append journal"))
+    (switch-to-buffer (find-file-noselect (car org-agenda-files)))
+    (org-datetree-find-date-create date)
+    (org-end-of-subtree)
+    (when (boundp 'evil-mode)
+      (evil-append-line 1))
+    ))
+
+(global-set-key (kbd "C-c s") 'my-org-journal-add-entry)
+
 ;; org-mode - this is why I am here and not in vim
 (use-package org
   :config
   (progn
     (cond
-     ((string= system-name "charon")
+     ((or (string= system-name "charon")
+          (string= system-name "pluto"))
       (setq org-agenda-files (list "~/org/journal.org")
             org-directory "~/org"))
      ((string= system-name "dione")
