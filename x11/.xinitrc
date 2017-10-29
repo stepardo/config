@@ -16,4 +16,4 @@ numlockx off
 setxkbmap -layout 'us(altgr-intl)' -option caps:swapescape
 
 # use emacs as window manager
-exec dbus-launch --exit-with-session emacsclient -c
+exec dbus-launch --exit-with-session herbstluftwm

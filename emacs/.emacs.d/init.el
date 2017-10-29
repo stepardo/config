@@ -456,12 +456,21 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; use emacs as window manager as well
 (use-package exwm
+  :disabled
   :if (not (is-slow-system))
   :config
   (progn
     (require 'exwm-systemtray)
-    (exwm-systemtray-enable)))
+    (exwm-systemtray-enable)
+    (exwm-input-set-key (kbd "C-T") #'exwm-reset)
+    (exwm-input-set-key (kbd "C-t")
+                        (lambda (command)
+                          (interactive (list (read-shell-command "$ ")))
+                          (start-process-shell-command command nil command)))
+
+    ))
 (use-package exwm-config
+  :disabled
   :if (not (is-slow-system))
   :config
   (exwm-config-default)
