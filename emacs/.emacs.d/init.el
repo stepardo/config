@@ -13,6 +13,11 @@
   "Return t if running on a slow system, aka my phone."
   (string= system-name "localhost"))
 
+;;; Store additional config in a 'lisp' subfolder and add it to the load path so
+;;; that `require' can find the files.
+;; borrowed from https://github.com/Ambrevar/dotfiles
+(add-to-list 'load-path (expand-file-name "elisp/" user-emacs-directory))
+
 ;; ensure repo cache is up to date (don't to that on slow systems...)
 (unless (is-slow-system)
     (if (file-exists-p package-user-dir)
@@ -407,7 +412,9 @@ If there is no entry for today, a new one will be added"
     ))
 
 (use-package emms
-  :if (not (string= system-name "localhost")))
+  :if (not (string= system-name "localhost"))
+  :config
+  (require 'init-evil-emms))
 
 ;; .cfg files are mostly LUA for me
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
@@ -506,6 +513,13 @@ If there is no entry for today, a new one will be added"
   (when (boundp 'window-divider-mode)
     (setq window-divider-default-right-width 1)
     (window-divider-mode)))
+
+;; cool pdf support
+(use-package pdf-tools
+  :if (not (is-slow-system))
+  :config
+  (pdf-tools-install)
+  (require 'init-evil-pdf))
 
 ;; save sessions
 (desktop-save-mode 1)
