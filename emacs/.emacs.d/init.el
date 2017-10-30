@@ -504,14 +504,11 @@ If there is no entry for today, a new one will be added"
   :config
   (progn
     (require 'exwm-systemtray)
-    (exwm-systemtray-enable)))
-(use-package exwm-config
-  :if (not (is-slow-system))
-  :config
-  (exwm-config-default)
-  (when (boundp 'window-divider-mode)
-    (setq window-divider-default-right-width 1)
-    (window-divider-mode)))
+    (exwm-systemtray-enable)
+    (exwm-config-default)
+    (when (boundp 'window-divider-mode)
+      (setq window-divider-default-right-width 1)
+      (window-divider-mode))))
 
 ;; cool pdf support
 (use-package pdf-tools
