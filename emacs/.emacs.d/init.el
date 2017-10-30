@@ -418,7 +418,11 @@ If there is no entry for today, a new one will be added"
 (use-package emms
   :if (not (string= system-name "localhost"))
   :config
-  (require 'init-evil-emms))
+  (progn
+    (require 'emms-setup)
+    (emms-standard)
+    (emms-default-players)
+    (require 'init-evil-emms)))
 
 ;; .cfg files are mostly LUA for me
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
