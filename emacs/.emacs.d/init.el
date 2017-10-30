@@ -64,8 +64,12 @@
   ;(use-package suscolors-theme)
   ;(load-theme 'suscolors t) ;; 'inkpot is also a great choice
   (use-package color-theme-modern
+    :disabled
     :config
     (load-theme 'cobalt t))
+  (use-package plan9-theme
+    :config
+    (load-theme 'plan9))
 
   ;; powerline
   (use-package powerline
