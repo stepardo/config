@@ -19,4 +19,4 @@ xinput set-prop SynPS/2 Synaptics TouchPad libinput Tapping Enabled 1
 setxkbmap -layout 'us(altgr-intl)' -option caps:escape #caps:swapescape
 
 # use emacs as window manager
-exec dbus-launch --exit-with-session emacsclient -c
+exec dbus-launch --exit-with-session herbstluftwm
