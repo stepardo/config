@@ -6,7 +6,7 @@
 127.0.0.1 ads.golem.de
 127.0.0.1 business-informant.de
 127.0.0.1 links.business-informant.de
-127.0.0.1 ws-eu.amazon-adsystem.com 
+127.0.0.1 ws-eu.amazon-adsystem.com
 127.0.0.1 api.accounts.firefox.com
 127.0.0.1 profile.accounts.firefox.com
 127.0.0.1 aus5.mozilla.org
@@ -35,5 +35,5 @@
 # avoid distractions
 #127.0.0.1 www.reddit.com
 #127.0.0.1 reddit.com
-127.0.0.1 ycombinator.com
-127.0.0.1 news.ycombinator.com
+#127.0.0.1 ycombinator.com
+#127.0.0.1 news.ycombinator.com
