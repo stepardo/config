@@ -285,8 +285,8 @@ If there is no entry for today, a new one will be added"
       (setq org-agenda-files (list "~/org/journal.org")
             org-directory "~/org"))
      ((string= system-name "dione")
-      (setq org-agenda-files (list "~/kk/org/worklog.org"
-                                   "~/kk/org/journal.org"
+      (setq org-agenda-files (list "~/kk/org/journal.org"
+                                   "~/kk/org/worklog.org"
                                    "~/kk/org/gtd.org")
             org-directory "~/kk/org/"))
      (t
