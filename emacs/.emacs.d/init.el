@@ -94,7 +94,9 @@
       ; scroll like vim
       scroll-step 1
       scroll-margin 1
-      scroll-conservatively 9999)
+      scroll-conservatively 9999
+      dired-listing-switches "-alh" ; use human readable file sizes in dired
+      )
 
 (setq-default standard-indent 2
               indent-tabs-mode nil
@@ -511,12 +513,24 @@ If there is no entry for today, a new one will be added"
       (setq window-divider-default-right-width 1)
       (window-divider-mode))))
 
+(use-package eshell
+  :config
+  (progn
+    (require 'em-smart)
+    (require 'em-rebind)
+    (setq eshell-where-to-jump 'begin
+          eshell-review-quick-commands nil
+          eshell-smart-space-goes-to-end t)))
+
 ;; cool pdf support
 (use-package pdf-tools
   :if (not (is-slow-system))
+  :pin manual ; update manually
   :config
   (pdf-tools-install)
-  (require 'init-evil-pdf))
+  (require 'init-evil-pdf)
+  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+                                        ; doesn't work with swiper
 
 ;; save sessions
 (desktop-save-mode 1)
