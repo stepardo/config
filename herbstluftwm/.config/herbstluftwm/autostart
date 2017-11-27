@@ -102,8 +102,8 @@ hc set frame_padding 2
 hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
-hc pad 0 26 0 0
-hc pad 1 26 0 0
+hc pad 0 32 0 0
+hc pad 1 32 0 0
 
 # rules
 hc unrule -F
