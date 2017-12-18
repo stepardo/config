@@ -100,7 +100,11 @@
 
 ;; tramp backup path (if not set, save in local backup directory)
 (setq tramp-backup-directory-alist nil
-      tramp-auto-save-directory nil)
+      tramp-auto-save-directory "~/.tramp-saves")
+
+;(setq starttls-use-gnutls t
+;      starttls-gnutls-program "gnutls-cli"
+;      starttls-extra-arguments '("--starttls" "--insecure"))
 
 (setq-default standard-indent 2
               indent-tabs-mode nil
@@ -247,8 +251,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (eval-after-load 'evil-vars
   '(evil-set-initial-state 'bongo-playlist-mode 'emacs))
 
-;;(global-set-key (kbd "<f2>") 'compile)
-;;(global-set-key (kbd "<f3>") 'magit-status)
+(global-set-key (kbd "<f2>") 'compile)
+(global-set-key (kbd "<f3>") 'magit-status)
 ;;(global-set-key (kbd "<f4>") 'org-capture)
 ;;(global-set-key (kbd "<f2>") 'bongo-pause/resume)
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
