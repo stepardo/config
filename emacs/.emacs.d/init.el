@@ -112,6 +112,10 @@
               c-basic-offset 2
               lua-indent-level 2)
 
+;; use cperl instead of perl-mode
+(fset 'perl-mode 'cperl-mode)
+(setq cperl-indent-level 2
+      cperl-close-paren-offset -2)
 
 (show-paren-mode)   ; match parentesis
 (global-hl-line-mode) ; highlight line
