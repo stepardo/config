@@ -11,7 +11,7 @@ function! find-file()
   emacsclient -e "(find-file \"$1\")";
 }
 
-function! man()
+function! eman()
 {
   emacsclient -e "(man \"$1\")";
 }
