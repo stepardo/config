@@ -102,8 +102,8 @@ hc set frame_padding 2
 hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
-hc pad 0 26 0 0
-hc pad 1 26 0 0
+hc pad 0 32 0 0
+hc pad 1 32 0 0
 
 # rules
 hc unrule -F
@@ -112,7 +112,7 @@ hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
 hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 
-hc rule class~'[Ee]macs' tag=emacs focus=on switchtag=on
+# hc rule class~'[Ee]macs' tag=emacs focus=on switchtag=on
 
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on

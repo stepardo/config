@@ -19,9 +19,9 @@
 (add-to-list 'load-path (expand-file-name "elisp/" user-emacs-directory))
 
 ;; ensure repo cache is up to date (don't to that on slow systems...)
-(unless (is-slow-system)
-    (if (file-exists-p package-user-dir)
-        (package-refresh-contents)))
+;(unless (is-slow-system)
+;    (if (file-exists-p package-user-dir)
+;        (package-refresh-contents)))
 
 ;; Install use-package
 (defun ensure-package-installed (package)
@@ -94,7 +94,17 @@
       ; scroll like vim
       scroll-step 1
       scroll-margin 1
+      scroll-conservatively 9999
+      dired-listing-switches "-alh" ; use human readable file sizes in dired
       scroll-conservatively 9999)
+
+;; tramp backup path (if not set, save in local backup directory)
+(setq tramp-backup-directory-alist nil
+      tramp-auto-save-directory "~/.tramp-saves")
+
+;(setq starttls-use-gnutls t
+;      starttls-gnutls-program "gnutls-cli"
+;      starttls-extra-arguments '("--starttls" "--insecure"))
 
 (setq-default standard-indent 2
               indent-tabs-mode nil
@@ -102,6 +112,10 @@
               c-basic-offset 2
               lua-indent-level 2)
 
+;; use cperl instead of perl-mode
+(fset 'perl-mode 'cperl-mode)
+(setq cperl-indent-level 2
+      cperl-close-paren-offset -2)
 
 (show-paren-mode)   ; match parentesis
 (global-hl-line-mode) ; highlight line
@@ -112,6 +126,8 @@
 ;; set c++-mode for files without extension
 (setq major-mode 'c++-mode)
 
+;; no not delete trailing newlines
+(setq-default delete-trailing-newlines nil)
 ;; delete trailing whitespace automatically on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -239,8 +255,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (eval-after-load 'evil-vars
   '(evil-set-initial-state 'bongo-playlist-mode 'emacs))
 
-;;(global-set-key (kbd "<f2>") 'compile)
-;;(global-set-key (kbd "<f3>") 'magit-status)
+(global-set-key (kbd "<f2>") 'compile)
+(global-set-key (kbd "<f3>") 'magit-status)
 ;;(global-set-key (kbd "<f4>") 'org-capture)
 ;;(global-set-key (kbd "<f2>") 'bongo-pause/resume)
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
@@ -275,6 +291,20 @@ If there is no entry for today, a new one will be added"
 
 (global-set-key (kbd "C-c s") 'my-org-journal-add-entry)
 
+(setq my-org-journal-review-current-date nil)
+(defun my-org-journal-review-month ()
+  "Go through all journal entries of the current month. If called repeatedly,
+  goes through all entries, day by day (if available), and wraps over to the
+  first entry"
+  (interactive)
+  (let* ((datetree-date (org-read-date nil nil "1"))
+         (date (org-date-to-gregorian datetree-date))
+         (journal (car org-agenda-files)))
+    (message "First day of month is: %s" date)
+    (unless (file-readable-p journal)
+      (error "Journal file not found"))
+  ))
+
 ;; org-mode - this is why I am here and not in vim
 (use-package org
   :config
@@ -285,9 +315,7 @@ If there is no entry for today, a new one will be added"
       (setq org-agenda-files (list "~/org/journal.org")
             org-directory "~/org"))
      ((string= system-name "dione")
-      (setq org-agenda-files (list "~/kk/org/worklog.org"
-                                   "~/kk/org/journal.org"
-                                   "~/kk/org/gtd.org")
+      (setq org-agenda-files (list "~/kk/org/journal.org")
             org-directory "~/kk/org/"))
      (t
       (setq org-directory "~/org")
@@ -507,17 +535,70 @@ If there is no entry for today, a new one will be added"
     (exwm-systemtray-enable)
     (require 'exwm-config)
     (exwm-config-default)
+    (setq exwm-layout-show-all-buffers t ; let me switch to all windows
+                                         ; regardless of the ws they are in
+          exwm-workspace-show-all-buffers t)
     (when (boundp 'window-divider-mode)
       (setq window-divider-default-right-width 1)
       (window-divider-mode)))
   )
 
+(use-package eshell
+  :config
+  (progn
+    (require 'em-smart)
+    (require 'em-rebind)
+    (setq eshell-where-to-jump 'begin
+          eshell-review-quick-commands nil
+          eshell-smart-space-goes-to-end t)))
+
 ;; cool pdf support
 (use-package pdf-tools
   :if (not (is-slow-system))
+  :pin manual ; update manually
   :config
   (pdf-tools-install)
-  (require 'init-evil-pdf))
+  (require 'init-evil-pdf)
+  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+                                        ; doesn't work with swiper
+
+;; have a browser
+(use-package eww
+  :config
+  (progn
+    (use-package eww-lnum)
+    (evil-define-key 'normal eww-mode-map
+      "&" 'eww-browse-with-external-browser ;; default in eww-mode
+      "q" 'eww-quit ;; different in vimperator (run macro)
+      "a" 'eww-add-bookmark
+      "yy" 'eww-copy-page-url
+      "f" 'eww-lnum-follow
+      "F" 'eww-lnum-universal ;; in vimperator open new tab
+      "gu" 'eww-up-url
+      "gt" 'eww-top-url
+      "f" 'eww-lnum-follow
+      "F" 'eww-lnum-universal
+      "H" 'eww-back-url ;; H in vimperator, because h is :help, but I think lowercase is better for us
+      "L" 'eww-forward-url ;; in vimperator, L is used for consistency, but again I think lower case is nicer for us
+      "r" 'eww-reload
+      )))
+
+(defun bury-compile-buffer-if-successful (buffer string)
+  "Bury a compilation buffer if succeeded without warnings "
+  (let ((case-fold-search nil))
+    (if (and
+         (string-match "compilation" (buffer-name buffer))
+         (string-match "finished" string)
+         (not
+          (with-current-buffer buffer
+            (goto-char 1)
+            (search-forward "warning" nil t))))
+        (run-with-timer 1 nil
+                        (lambda (buf)
+                          (bury-buffer buf)
+                          (switch-to-prev-buffer (get-buffer-window buf) 'kill))
+                        buffer))))
+(add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful)
 
 ;; save sessions
 (desktop-save-mode 1)

@@ -16,7 +16,13 @@ numlockx off
 xinput set-prop SynPS/2 Synaptics TouchPad libinput Tapping Enabled 1
 
 # use us intl layout with altgr for umlauts, caps lock is escape, //swap caps lock and escape
-setxkbmap -layout 'us(altgr-intl)' -option caps:escape #caps:swapescape
+setxkbmap -option
+setxkbmap -layout 'us(altgr-intl)'#caps:swapescape
+setxkbmap -option
+setxkbmap -option caps:escape
+
+mate-settings-daemon &
 
 # use emacs as window manager
-exec dbus-launch --exit-with-session emacsclient -c
+#exec dbus-launch --exit-with-session emacsclient -c
+exec mate-session
