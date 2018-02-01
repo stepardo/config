@@ -505,10 +505,12 @@ If there is no entry for today, a new one will be added"
   (progn
     (require 'exwm-systemtray)
     (exwm-systemtray-enable)
+    (require 'exwm-config)
     (exwm-config-default)
     (when (boundp 'window-divider-mode)
       (setq window-divider-default-right-width 1)
-      (window-divider-mode))))
+      (window-divider-mode)))
+  )
 
 ;; cool pdf support
 (use-package pdf-tools
