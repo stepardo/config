@@ -50,7 +50,14 @@
 			  (lambda (command)
 			    (interactive (list (read-shell-command "Run: ")))
 			    (start-process-shell-command command nil command)))
-      (exwm-input-set-key (kbd "s-t") (launch-program "st"))
+      (exwm-input-set-key (kbd "s-<return>")
+                          (launch-program "konsole"))
+      ;(exwm-input-set-key (kbd "s-p")
+      ;                    (lambda ()
+      ;                      (interactive)
+      ;                      (let ((command "bash /home/steffen/bin/dmenu_run"))
+      ;                        (start-process-shell-command command nil command)
+      ;                        (message (concat "tried to launch " command)))))
 
       (exwm-input-set-key [XF86AudioRaiseVolume]
 			  (launch-program (s-join " "
@@ -71,6 +78,8 @@
 
       (dolist (key (list (kbd "C-M-l") [XF86ScreenSaver] [XF86Sleep]) nil)
 	(exwm-input-set-key key (launch-program "systemctl start physlock.service"))))
+
+
     (exwm-enable)
     (exwm-randr-enable)
     (exwm-systemtray-enable)
