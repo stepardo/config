@@ -25,4 +25,4 @@ mate-settings-daemon &
 
 # use emacs as window manager
 #exec dbus-launch --exit-with-session emacsclient -c
-exec mate-session
+exec dbus-run-session mate-session
