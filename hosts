@@ -32,8 +32,11 @@
 127.0.0.1 safe-browsing.cliqz.com
 127.0.0.1 safe-browsing-quorum.cliqz.com
 # avoid distractions
-#127.0.0.1 www.reddit.com
-#127.0.0.1 reddit.com
+127.0.0.1 www.reddit.com
+127.0.0.1 reddit.com
+127.0.0.1 spiegel.de
+127.0.0.1 m.spiegel.de
+127.0.0.1 www.spiegel.de
 127.0.0.1 ycombinator.com
 127.0.0.1 news.ycombinator.com
 127.0.0.1 hacker-news.firebaseio.com/
