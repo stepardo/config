@@ -9,7 +9,7 @@ export PAGER="less -r"
 export QEMU_AUDIO_DRV=none
 
 # set compose key
-setxkbmap -option compose:lwin
+#setxkbmap -option compose:lwin
 
 function! cgrep() {
 	grep -rnH \
