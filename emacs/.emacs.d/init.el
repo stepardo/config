@@ -445,6 +445,7 @@ If there is no entry for today, a new one will be added"
 
 (use-package emms
   :if (not (string= system-name "localhost"))
+  :disabled
   :config
   (progn
     (require 'emms-setup)
@@ -554,7 +555,7 @@ If there is no entry for today, a new one will be added"
 ;; cool pdf support
 (use-package pdf-tools
   :if (not (is-slow-system))
-  :pin manual ; update manually
+  ;:pin manual ; update manually
   :config
   (pdf-tools-install)
   (require 'init-evil-pdf)
