@@ -15,3 +15,10 @@ function! eman()
 {
   emacsclient -e "(man \"$1\")";
 }
+
+if [ -n "$INSIDE_EMACS" ]; then
+  chpwd() { print -P "\033AnSiTc %d" }
+  print -P "\033AnSiTu %n"
+  print -P "\033AnSiTc %d"
+  export TERM=eterm-color
+fi
