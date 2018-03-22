@@ -115,7 +115,11 @@
 ;; use cperl instead of perl-mode
 (fset 'perl-mode 'cperl-mode)
 (setq cperl-indent-level 2
-      cperl-close-paren-offset -2)
+      cperl-close-paren-offset -2
+      cperl-electric-parens nil
+      cperl-electric-keywords nil)
+(add-hook 'cperl-mode-hook
+          (lambda () (setq-local local-abbrev-table nil)))
 
 (show-paren-mode)   ; match parentesis
 (global-hl-line-mode) ; highlight line
@@ -130,6 +134,7 @@
 (setq-default delete-trailing-newlines nil)
 ;; delete trailing whitespace automatically on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(remove-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (defun my-other-window ()
   "Ensure evil-mode is in normal state when switching windows"
@@ -215,6 +220,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       "e" 'find-file
       "b" 'switch-to-buffer
       "k" 'kill-buffer)))
+
+(use-package magit
+  :config
+  (setq git-commit-fill-column 72))
 
 (use-package evil-magit
   :config

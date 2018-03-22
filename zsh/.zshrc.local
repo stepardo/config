@@ -29,7 +29,7 @@ alias od=objectdump
 function! cvim() {
   file="$(echo "$1" | cut -d ':' -f 1)"
   line="$(echo "$1" | cut -d ':' -f 2)"
-  emacsclient -nw "+$line" "$file"
+  emacsclient "+$line" "$file"
 }
 
 function! thinkpad_disable_keyboard ()
@@ -63,5 +63,5 @@ then
   source $HOME/.zshrc.kk
 fi
 
-alias pp="emacsclient -e '(emms-pause)'"
+alias pp="spotifycmd playpause"
 # alias pp="qdbus org.kde.amarok /Player org.freedesktop.MediaPlayer.PlayPause"
