@@ -206,6 +206,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (define-key minibuffer-local-must-match-map [escape]
       'minibuffer-keyboard-quit)
     (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+    (define-key evil-normal-state-map (kbd "M-.") 'find-tag)
     ))
 
 (use-package evil-leader
