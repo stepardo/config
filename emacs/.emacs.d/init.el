@@ -618,5 +618,26 @@ If there is no entry for today, a new one will be added"
                         buffer))))
 (add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful)
 
+(setq tags-table-list
+      '("~/kk/git/repo/pkg" "~/kk/git/repo/fiasco"))
+
+(defmacro music_cmd (command)
+  "Run music command"
+  `(let ((spotify "/home/steffen/bin/spotifycmd "))
+    (start-process-shell-command "spotify" nil (concat spotify ,command))))
+
+(defun play_pause ()
+  "Play/pause spotify"
+  (interactive)
+  (music_cmd "playpause"))
+
+(defun play_next ()
+  "Play next track"
+  (interactive)
+  (music_cmd "next"))
+
+(global-set-key (kbd "\C-c y") 'play_pause)
+(global-set-key (kbd "\C-c u") 'play_next)
+
 ;; save sessions
 (desktop-save-mode 1)
