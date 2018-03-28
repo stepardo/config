@@ -1,23 +1,34 @@
 ;;; -*- mode: emacs-lisp; -*-
 
-;; this is nil if exwm is loaded by emacs -l
-
 (defun exwm-my-config ()
-  ;(when (featurep 'exwm)
 
-    (require 'exwm-randr)
     (require 'exwm-systemtray)
     (require 's)
 
-    (setq exwm-workspace-number 2
-	  exwm-workspace-show-all-buffers t
-	  exwm-layout-show-all-buffers t
-	  exwm-randr-workspace-output-plist '(0 "eDP-1" 1 "DP-2-1" ))
+    (when (string= (system-name "dione"))
+      (require 'exwm-randr)
+      (setq exwm-workspace-number 2
+            exwm-workspace-show-all-buffers t
+            exwm-layout-show-all-buffers t
+            exwm-randr-workspace-output-plist '(0 "eDP-1" 1 "DP-2-1" )))
 
     (defun exwm-update-buffer-name ()
       (exwm-workspace-rename-buffer (format "%% %.20s — %.20s" exwm-title exwm-class-name)))
+    
     (add-hook 'exwm-update-class-hook #'exwm-update-buffer-name)
     (add-hook 'exwm-update-title-hook #'exwm-update-buffer-name)
+
+    (exwm-input-set-key (kbd "s-i")
+                        (lambda ()
+                          (interactive)
+                          (message "hallo steffen")
+                          (exwm-input-toggle-keyboard)))
+    ;; I wanted to always have char-mode when switching to konsole, this
+    ;; doesn't work yet.
+    ;;(add-hook 'exwm-manage-finish-hook
+    ;;          (defun stepardo-exwm-manage-hook ()
+    ;;            (when (string= exwm-class-name "konsole")
+    ;;              (exwm-input-release-keyboard))))
 
     (macrolet ((launch-program (command)
 			       `(lambda ()
@@ -93,3 +104,4 @@
 
 (provide 'exwm-my-config)
 ;;(add-hook 'emacs-startup-hook #'exwm-my-config)
+
