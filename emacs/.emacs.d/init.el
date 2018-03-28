@@ -552,12 +552,14 @@ If there is no entry for today, a new one will be added"
   (progn
     (require 'exwm-systemtray)
     (exwm-systemtray-enable)
+    (display-time-mode 1)
+    (display-battery-mode 1)
+    (setq display-time-string-forms '((format-time-string "%H:%M " now)))
     (require 'exwm-my-config)
     (exwm-my-config)
     (when (boundp 'window-divider-mode)
       (setq window-divider-default-right-width 1)
-      (window-divider-mode)))
-  )
+      (window-divider-mode))))
 
 (use-package eshell
   :config
