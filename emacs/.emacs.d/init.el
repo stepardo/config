@@ -408,6 +408,14 @@ If there is no entry for today, a new one will be added"
     (define-key ivy-minibuffer-map
       (kbd "<C-return>") 'ivy-immediate-done)))
 
+(setq my-custom-directory "~/")
+(defun my-counsel-find-file (&optional initial-input)
+  (interactive)
+  (progn
+    (when (eq major-mode 'exwm-mode)
+      (setq default-directory my-custom-directory))
+    (counsel-find-file initial-input)))
+
 (use-package counsel
   :demand t
   :config
@@ -416,7 +424,7 @@ If there is no entry for today, a new one will be added"
     (global-set-key (kbd "C-c m") 'counsel-imenu)
     (global-set-key (kbd "C-c _") 'counsel-git-grep) ;; Quickly open external
     (global-set-key (kbd "M-x")   'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "C-x C-f") 'my-counsel-find-file)
     (global-set-key (kbd "C-c g") 'counsel-git)
     (global-set-key (kbd "C-c j") 'counsel-git-grep)
     (global-set-key (kbd "C-c k") 'counsel-ag)

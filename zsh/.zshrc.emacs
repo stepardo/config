@@ -22,3 +22,11 @@ if [ -n "$INSIDE_EMACS" ]; then
   print -P "\033AnSiTc %d"
   export TERM=eterm-color
 fi
+
+autoload -U add-zsh-hook
+add-zsh-hook chpwd emacs_chdir
+
+function emacs_chdir() {
+  dir=`pwd`
+  emacsclient -e "(setq my-custom-directory \"$dir/\")"
+}
