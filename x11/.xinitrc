@@ -22,8 +22,9 @@ setxkbmap -option
 setxkbmap -option caps:escape
 
 mate-settings-daemon &
+mate-power-manager &
+nm-applet &
 
 # use emacs as window manager
-#exec dbus-launch --exit-with-session emacsclient -c
 #exec dbus-run-session mate-session
 exec dbus-launch --exit-with-session emacsclient -c
