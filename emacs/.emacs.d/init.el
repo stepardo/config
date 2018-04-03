@@ -96,7 +96,8 @@
       scroll-margin 1
       scroll-conservatively 9999
       dired-listing-switches "-alh" ; use human readable file sizes in dired
-      scroll-conservatively 9999)
+      scroll-conservatively 9999
+      x-select-enable-clipboard t) ; Copy to clipboard as well
 
 ;; tramp backup path (if not set, save in local backup directory)
 (setq tramp-backup-directory-alist nil
