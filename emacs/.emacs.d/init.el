@@ -518,7 +518,8 @@ If there is no entry for today, a new one will be added"
 					  (tab-width        . 8)
 					  (c-default-style  . "linux")))))
 
-(dir-locals-set-directory-class "/home/steffen/kk/git/repo" 'l4re-dir)
+(dir-locals-set-directory-class "/home/steffen/kk/git/repo/pkg"     'l4re-dir)
+(dir-locals-set-directory-class "/home/steffen/kk/git/repo/fiasco"  'l4re-dir)
 (dir-locals-set-directory-class "/home/steffen/kk/git/repo/l4linux" 'linux-dir)
 
 ;; this runs my perl tools on 'compile' in scenario files

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# copied from https://github.com/garybernhardt/dotfiles
+
+git diff $* | gn
+
