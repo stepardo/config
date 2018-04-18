@@ -25,6 +25,9 @@ mate-settings-daemon &
 mate-power-manager &
 nm-applet &
 
+# run slock on suspend
+xss-lock slock &
+
 # use emacs as window manager
 #exec dbus-run-session mate-session
 exec dbus-launch --exit-with-session emacsclient -c
