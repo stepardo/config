@@ -5,16 +5,16 @@
     (require 'exwm-systemtray)
     (require 's)
 
-    (when (string= (system-name "dione"))
+    (when (string= system-name "dione")
       (require 'exwm-randr)
       (setq exwm-workspace-number 2
             exwm-workspace-show-all-buffers t
             exwm-layout-show-all-buffers t
-            exwm-randr-workspace-output-plist '(0 "eDP-1" 1 "DP-2-1" )))
+            exwm-randr-workspace-output-plist '(0 "eDP-1" 1 "DP-2-1" 2 "HDMI-1"  )))
 
     (defun exwm-update-buffer-name ()
       (exwm-workspace-rename-buffer (format "%% %.20s — %.20s" exwm-title exwm-class-name)))
-    
+
     (add-hook 'exwm-update-class-hook #'exwm-update-buffer-name)
     (add-hook 'exwm-update-title-hook #'exwm-update-buffer-name)
 
