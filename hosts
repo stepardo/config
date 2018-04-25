@@ -35,6 +35,7 @@
 127.0.0.1 www.reddit.com
 127.0.0.1 nb.reddit.com
 127.0.0.1 reddit.com
+127.0.0.1 de.reddit.com
 127.0.0.1 ycombinator.com
 127.0.0.1 news.ycombinator.com
-#127.0.0.1 hacker-news.firebaseio.com/
+127.0.0.1 hacker-news.firebaseio.com/
