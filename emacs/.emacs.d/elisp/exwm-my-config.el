@@ -87,9 +87,9 @@
 						  '("pactl -- set-source-mute"
 						    "alsa_input.pci-0000_00_1f.3.analog-stereo toggle"))))
 
-      (dolist (key (list (kbd "C-M-l") [XF86ScreenSaver] [XF86Sleep]) nil)
-	(exwm-input-set-key key (launch-program "systemctl start physlock.service"))))
-
+      (dolist (key (list [XF86ScreenSaver] [XF86Sleep]) nil)
+	  (exwm-input-set-key key (launch-program "slock")))
+      )
 
     (exwm-enable)
     (exwm-randr-enable)
