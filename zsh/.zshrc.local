@@ -127,3 +127,4 @@ function up() {
   esac
 }
 
+alias cputemp="cat /sys/devices/platform/coretemp.0/temp{1..3}_input"
