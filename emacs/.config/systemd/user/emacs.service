@@ -3,8 +3,9 @@ Description=Emacs: the extensible, self-documenting text editor
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/emacs --daemon -f exwm-enable
-ExecStop=/usr/bin/emacsclient --eval "(progn (setq kill-emacs-hook 'nil) (kill-emacs))"
+ExecStart=/home/steffen/opt/bin/emacs --fg-daemon -f exwm-enable
+ExecStop=/home/steffen/opt/bin/emacsclient --eval "(progn (setq kill-emacs-hook 'nil) (kill-emacs))"
+Environment=SSH_AUTH_SOCK=%t/keyring/ssh
 Restart=always
 
 # Remove the limit in startup timeout, since emacs
