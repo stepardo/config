@@ -6,14 +6,26 @@ alias nvi='/usr/bin/vim'
 # make emacs use useful colors...
 export TERM=xterm-256color
 
+# if we have $HOME/opt/bin, use it in path
+if [ -d "$HOME/opt/bin" ];
+then
+    export PATH="$HOME/opt/bin:$PATH"
+fi
+
 function! find-file()
 {
-  emacsclient -e "(find-file \"$1\")";
+  emacsclient -u -e "(find-file \"$1\")";
 }
 
 function! eman()
 {
-  emacsclient -e "(man \"$1\")";
+  emacsclient -u -e "(man \"$1\")";
+}
+
+function! cvim() {
+  file="$(echo "$1" | cut -d ':' -f 1)"
+  line="$(echo "$1" | cut -d ':' -f 2)"
+  emacsclient -u "+$line" "$file"
 }
 
 if [ -n "$INSIDE_EMACS" ]; then
