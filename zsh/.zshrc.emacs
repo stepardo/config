@@ -39,6 +39,10 @@ autoload -U add-zsh-hook
 add-zsh-hook chpwd emacs_chdir
 
 function emacs_chdir() {
-  dir=`pwd`
-  emacsclient -e "(setq my-custom-directory \"$dir/\")"
+  case $PWD in
+      /home/steffen/kk/git/build/*)
+          echo "In builddir, not telling emacs." ;;
+      *)
+          emacsclient -u -e "(setq my-custom-directory \"$PWD/\")" ;;
+  esac
 }
