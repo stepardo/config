@@ -26,12 +26,6 @@ function! objectdump() {
 }
 alias od=objectdump
 
-function! cvim() {
-  file="$(echo "$1" | cut -d ':' -f 1)"
-  line="$(echo "$1" | cut -d ':' -f 2)"
-  emacsclient "+$line" "$file"
-}
-
 function! thinkpad_disable_keyboard ()
 {
   id=`xinput list | grep 'AT Translated Set 2' | cut -f 2 | cut -f 2 -d =`
