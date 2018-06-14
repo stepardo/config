@@ -300,6 +300,7 @@ If there is no entry for today, a new one will be added"
       (evil-append-line 1))
     ))
 
+;(define global-map "\C-c" nil) ;; reset C-c to nil in case there was a command
 (global-set-key (kbd "C-c s") 'my-org-journal-add-entry)
 
 (setq my-org-journal-review-current-date nil)
@@ -405,10 +406,23 @@ If there is no entry for today, a new one will be added"
   (progn
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t
-          ivy-count-format "(%d/%d) ")
+          ivy-count-format "(%d/%d) "
+          enable-recursive-minibuffers nil)
     (advice-add 'imenu :before 'my-save-imenu-jump)
     (define-key ivy-minibuffer-map
-      (kbd "<C-return>") 'ivy-immediate-done)))
+      (kbd "<C-return>") 'ivy-immediate-done)
+    (global-set-key (kbd "C-c v") 'ivy-push-view)
+    (global-set-key (kbd "C-c V") 'ivy-pop-view)))
+
+(use-package ivy-rich
+  :demand t
+  :config
+  (progn
+    (ivy-set-display-transformer 'ivy-switch-buffer
+                                 'ivy-rich-switch-buffer-transformer)
+    (setq ivy-virtual-abbreviate "full"
+          ivy-rich-switch-buffer-align-virtual-buffer t
+          ivy-richt-path-style 'abbrev)))
 
 (setq my-custom-directory "~/")
 (defun my-counsel-find-file (&optional initial-input)
@@ -640,6 +654,21 @@ If there is no entry for today, a new one will be added"
 
 (global-set-key (kbd "\C-c y") 'play_pause)
 (global-set-key (kbd "\C-c u") 'play_next)
+
+(defun slock ()
+  "Run slock"
+  (interactive)
+  (start-process-shell-command "slock" nil "slock"))
+(global-set-key (kbd "\M-\C-l") 'slock)
+
+;; default font
+;; 
+;;name (opened by): -PfEd-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1
+;;       full name: DejaVu Sans Mono:pixelsize=15:foundry=PfEd:weight=normal:slant=normal:width=normal:spacing=100:scalable=true
+;;            size: 15
+;;          height: 18
+;; baseline-offset:  0
+;;relative-compose:  0
 
 ;; save sessions
 (desktop-save-mode 1)
