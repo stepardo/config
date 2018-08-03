@@ -563,7 +563,8 @@ If there is no entry for today, a new one will be added"
 
 ;; use emacs as window manager as well
 (use-package exwm
-  :if (not (is-slow-system))
+  :if (and (not (is-slow-system))
+           (not (string= system-name "pluto")))
   :config
   (progn
     (require 'exwm-systemtray)
