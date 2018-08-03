@@ -233,6 +233,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package let-alist)
 (use-package evil-org)
+(use-package s)
 
 (use-package evil-escape
   :if (not (is-slow-system))
