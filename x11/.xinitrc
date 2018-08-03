@@ -20,7 +20,7 @@ xset b off
 numlockx off
 
 # tap to click on thinkpads
-xinput set-prop SynPS/2 Synaptics TouchPad libinput Tapping Enabled 1
+xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 
 # use us intl layout with altgr for umlauts, caps lock is escape, //swap caps lock and escape
 setxkbmap -option
