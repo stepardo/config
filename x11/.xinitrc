@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # make middle button scroll on IBM trackpoint
 xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
@@ -37,7 +37,14 @@ xss-lock slock &
 # run compositor with vsync
 compton --backend glx --vsync opengl-swc &
 
-# use emacs as window manager
-#exec dbus-run-session mate-session
-exec dbus-launch --exit-with-session emacsclient -c
+#exec dbus-launch --exit-with-session emacsclient -c
+local hostname=$(hostname)
+if [ "$hostname" == "pluto" ];
+then
+# on pluto run mate
+	exec dbus-run-session mate-session
+else
+# use emacs as window manager on all other systems
+	exec dbus-launch --exit-with-session emacsclient -c
+fi
 
