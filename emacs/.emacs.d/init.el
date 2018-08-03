@@ -671,4 +671,4 @@ If there is no entry for today, a new one will be added"
 ;;relative-compose:  0
 
 ;; save sessions
-(desktop-save-mode 1)
+;(desktop-save-mode 1)
