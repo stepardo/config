@@ -1,7 +1,5 @@
 #!/bin/bash
 
-local hostname=$(hostname)
-
 # if we have an $HOME/opt/bin dir, prepend it to PATH
 if [ -d "$HOME/opt/bin" ];
 then
@@ -29,7 +27,7 @@ setxkbmap -layout 'us(altgr-intl)'
 setxkbmap -option
 setxkbmap -option caps:escape
 
-if [ "$hostname" == "pluto" ];
+if [ $(hostname) == "pluto" ];
 then
 	# on pluto run mate
 	exec dbus-run-session mate-session
