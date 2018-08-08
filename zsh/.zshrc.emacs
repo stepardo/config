@@ -43,6 +43,6 @@ function emacs_chdir() {
       /home/steffen/kk/git/build/*)
           echo "In builddir, not telling emacs." ;;
       *)
-          emacsclient -u -e "(setq my-custom-directory \"$PWD/\")" ;;
+          emacsclient -q -n -e "(setq my-custom-directory \"$PWD/\")" 2>&1 > /dev/null;;
   esac
 }
