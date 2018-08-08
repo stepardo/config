@@ -663,6 +663,12 @@ If there is no entry for today, a new one will be added"
   (start-process-shell-command "slock" nil "slock"))
 (global-set-key (kbd "\M-\C-l") 'slock)
 
+;; add ~/bin and ~/kk/bin to emacs PATH
+(add-to-list 'exec-path
+             (concat (getenv "HOME") "/bin"))
+(add-to-list 'exec-path
+             (concat (getenv "HOME") "/kk/bin/"))
+
 ;; default font
 ;; 
 ;;name (opened by): -PfEd-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1
