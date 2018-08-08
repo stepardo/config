@@ -65,7 +65,14 @@ alias pp="spotifycmd playpause"
 # 14dec2015  +chris+
 # 15dec2015  +chris+ clean up nonexisting paths
 chpwd_zz() {
-  print -P '0\t%D{%s}\t1\t%~' >>~/.zz
+  # do not enter builddir directories into the stash
+  case $PWD in
+      /home/steffen/kk/git/build/*)
+          ;;
+      *)
+          print -P '0\t%D{%s}\t1\t%~' >>~/.zz
+          ;;
+  esac
 }
 
 zz() {
@@ -102,7 +109,6 @@ autoload -U add-zsh-hook
 add-zsh-hook chpwd chpwd_zz
 
 alias z=' zz'
-
 function up() {
   local op=print
   [[ -t 1 ]] && op=cd
