@@ -9,6 +9,19 @@ fi
 # ensure emacs server is started
 systemctl --user start emacs
 
+start_emacs=yes
+if [ $(hostname) == "pluto" ];
+then
+  start_emacs=no
+fi
+
+# check if emacs server started correctly
+systemctl --user status emacs > /dev/null 2>&1
+if [ $? != 0 ];
+then
+  start_emacs=no
+fi
+
 xsetroot -cursor_name left_ptr
 
 xset b off
@@ -27,7 +40,7 @@ setxkbmap -layout 'us(altgr-intl)'
 setxkbmap -option
 setxkbmap -option caps:escape
 
-if [ $(hostname) == "pluto" ];
+if [ $start_emacs == "no" ];
 then
 	# on pluto run mate
 	exec dbus-run-session mate-session
