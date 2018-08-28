@@ -1,0 +1,20 @@
+[Unit]
+Description=Run disable_thinkpad_keyboard.sh on plugging in the Planck.
+After=dev-planck.device
+BindsTo=dev-planck.device
+Requisite=dev-planck.device
+StartLimitIntervalSec=0
+StartLimitBurst=0
+StartLimitAction=none
+
+[Service]
+Environment=DISPLAY=:0
+WorkingDirectory=/tmp
+Type=simple
+RemainAfterExit=yes
+ExecStart=/home/steffen/bin/disable_thinkpad_keyboard.sh
+ExecStop=/home/steffen/bin/enable_thinkpad_keyboard.sh
+StandardOutput=inherit
+
+[Install]
+WantedBy=dev-planck.device
