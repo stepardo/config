@@ -6,6 +6,12 @@ then
   export PATH="$HOME/opt/bin:$PATH"
 fi
 
+systemctl --user start ssh-agent
+if [ -z $SSH_AUTH_SOCK ];
+then
+  export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
+fi
+
 # ensure emacs server is started
 systemctl --user start emacs
 

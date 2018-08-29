@@ -1,7 +1,12 @@
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
+
 alias 2..="cd ../../.."
 alias 3..="cd ../../.."
 alias 4..="cd ../../../.."
 alias 5..="cd ../../../../.."
+
+__concurrency=$(($(grep -c MHz /proc/cpuinfo) * 2))
+alias m="make -j $__concurrency"
 
 export USE_CCACHE=1
 
