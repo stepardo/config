@@ -1,5 +1,5 @@
 [Unit]
-Description=Run disable_thinkpad_keyboard.sh on plugging in the Planck.
+Description=Keep thinkpad keyboard disabled the Planck is plugged in.
 After=dev-planck.device
 BindsTo=dev-planck.device
 Requisite=dev-planck.device
