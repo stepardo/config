@@ -419,8 +419,8 @@ If there is no entry for today, a new one will be added"
   :demand t
   :config
   (progn
-    (ivy-set-display-transformer 'ivy-switch-buffer
-                                 'ivy-rich-switch-buffer-transformer)
+    ;(ivy-set-display-transformer 'ivy-switch-buffer
+    ;                             'ivy-rich-switch-buffer-transformer)
     (setq ivy-virtual-abbreviate "full"
           ivy-rich-switch-buffer-align-virtual-buffer t
           ivy-richt-path-style 'abbrev)))
