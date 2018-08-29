@@ -12,8 +12,8 @@ Environment=DISPLAY=:0
 WorkingDirectory=/tmp
 Type=simple
 RemainAfterExit=yes
-ExecStart=/home/steffen/bin/disable_thinkpad_keyboard.sh
-ExecStop=/home/steffen/bin/enable_thinkpad_keyboard.sh
+ExecStart=/home/steffen/bin/control_thinkpad_keyboard.sh disable
+ExecStop=/home/steffen/bin/control_thinkpad_keyboard.sh enable
 StandardOutput=inherit
 
 [Install]
