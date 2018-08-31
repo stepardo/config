@@ -6,6 +6,7 @@ Requisite=dev-planck.device
 StartLimitIntervalSec=0
 StartLimitBurst=0
 StartLimitAction=none
+ConditionFileIsExecutable=/home/steffen/bin/control_thinkpad_keyboard.sh
 
 [Service]
 Environment=DISPLAY=:0

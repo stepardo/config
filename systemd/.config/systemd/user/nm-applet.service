@@ -1,5 +1,6 @@
 [Unit]
 Description=Keep nm-applet running during session
+ConditionFileIsExecutable=/usr/bin/nm-applet
 
 [Service]
 Type=simple
