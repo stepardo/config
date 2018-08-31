@@ -57,9 +57,7 @@ else
 	compton --backend glx --vsync opengl-swc &
 
 	# infrastructure
-	mate-settings-daemon &
-	mate-power-manager &
-	nm-applet &
+        systemctl --user start mate-utils.target
 
 	# use emacs as window manager on all other systems
 	exec dbus-launch --exit-with-session emacsclient -c

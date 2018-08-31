@@ -1,0 +1,11 @@
+[Unit]
+Description=Keep mate-power-manager running during session
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/mate-power-manager
+Restart=always
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=mate-utils.target
