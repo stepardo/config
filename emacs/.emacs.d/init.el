@@ -525,7 +525,7 @@ If there is no entry for today, a new one will be added"
 (dir-locals-set-class-variables 'l4re-dir
 				'((nil . ((compile-command  . "make -C . O=/home/steffen/kk/git/build/64")
 					  (indent-tabs-mode . nil)
-					  (tab-width        . 2)
+					  (tab-width        . 8)
 					  (c-default-style  . "gnu")))))
 
 (dir-locals-set-class-variables 'linux-dir
