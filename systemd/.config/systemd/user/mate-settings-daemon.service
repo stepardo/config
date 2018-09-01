@@ -1,6 +1,6 @@
 [Unit]
 Description=Keep mate-settings-daemon running during session
-ContitionFileIsExecutable=/usr/bin/mate-settings-daemon
+ConditionFileIsExecutable=/usr/bin/mate-settings-daemon
 
 [Service]
 Type=simple

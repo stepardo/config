@@ -1,6 +1,6 @@
 [Unit]
 Description=Keep mate-power-manager running during session
-ConditionFileIsExecutable=/usr/bin/mate-power/manager
+ConditionFileIsExecutable=/usr/bin/mate-power-manager
 
 [Service]
 Type=simple
