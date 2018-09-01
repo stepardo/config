@@ -50,8 +50,6 @@ then
 else
 	# run slock on suspend
 	xss-lock slock &
-	# run compositor with vsync
-	compton --backend glx --vsync opengl-swc &
 
 	# infrastructure
         systemctl --user start mate-utils.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Compton composition manager
+ConditionFileIsExecutable=/usr/bin/compton
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/compton
+Environment=DISPLAY=:0
+Restart=always
+
+[Install]
+WantedBy=mate-utils.target
