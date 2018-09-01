@@ -1,0 +1,21 @@
+[Unit]
+Description=Keep thinkpad keyboard disabled the Planck is plugged in.
+After=dev-planck.device
+BindsTo=dev-planck.device
+Requisite=dev-planck.device
+StartLimitIntervalSec=0
+StartLimitBurst=0
+StartLimitAction=none
+ConditionFileIsExecutable=/home/steffen/bin/control_thinkpad_keyboard.sh
+
+[Service]
+Environment=DISPLAY=:0
+WorkingDirectory=/tmp
+Type=simple
+RemainAfterExit=yes
+ExecStart=/home/steffen/bin/control_thinkpad_keyboard.sh disable
+ExecStop=/home/steffen/bin/control_thinkpad_keyboard.sh enable
+StandardOutput=inherit
+
+[Install]
+WantedBy=dev-planck.device

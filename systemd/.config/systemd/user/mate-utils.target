@@ -1,0 +1,2 @@
+[Unit]
+Description=Collects all mate daemons that are needed when running exwm. Is activated in .xinitrc.

@@ -1,0 +1,12 @@
+[Unit]
+Description=Keep nm-applet running during session
+ConditionFileIsExecutable=/usr/bin/nm-applet
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nm-applet
+Restart=always
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=mate-utils.target

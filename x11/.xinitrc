@@ -6,6 +6,9 @@ then
   export PATH="$HOME/opt/bin:$PATH"
 fi
 
+systemctl --user start agents.target
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
+
 # ensure emacs server is started
 systemctl --user start emacs
 
@@ -51,9 +54,7 @@ else
 	compton --backend glx --vsync opengl-swc &
 
 	# infrastructure
-	mate-settings-daemon &
-	mate-power-manager &
-	nm-applet &
+        systemctl --user start mate-utils.target
 
 	# use emacs as window manager on all other systems
 	exec dbus-launch --exit-with-session emacsclient -c
