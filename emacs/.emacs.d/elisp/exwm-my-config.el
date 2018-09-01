@@ -92,7 +92,8 @@
       )
 
     (exwm-enable)
-    (exwm-randr-enable)
+    (when (string= system-name "dione")
+      (exwm-randr-enable))
     (exwm-systemtray-enable)
 
     (tool-bar-mode -1)
