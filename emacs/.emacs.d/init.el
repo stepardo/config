@@ -97,6 +97,7 @@
       scroll-conservatively 9999
       dired-listing-switches "-alh" ; use human readable file sizes in dired
       scroll-conservatively 9999
+      sentence-end-double-space nil ; do not separate sentences with two spaces
       x-select-enable-clipboard t) ; Copy to clipboard as well
 
 ;; tramp backup path (if not set, save in local backup directory)
