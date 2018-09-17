@@ -97,6 +97,7 @@
       scroll-conservatively 9999
       dired-listing-switches "-alh" ; use human readable file sizes in dired
       scroll-conservatively 9999
+      visual-bell t ; do not audibly beep
       sentence-end-double-space nil ; do not separate sentences with two spaces
       x-select-enable-clipboard t) ; Copy to clipboard as well
 
