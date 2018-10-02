@@ -8,6 +8,8 @@ fi
 
 systemctl --user start agents.target
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
+systemctl --user set-environment SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+systemctl --user set-environment PATH=$PATH
 
 # ensure emacs server is started
 systemctl --user start emacs
