@@ -14,7 +14,7 @@ systemctl --user set-environment PATH=$PATH
 # ensure emacs server is started
 systemctl --user start emacs
 
-start_emacs=yes
+start_emacs=no
 if [ $(hostname) == "pluto" ];
 then
   start_emacs=no
@@ -54,7 +54,7 @@ else
 	xss-lock slock &
 
 	# infrastructure
-        systemctl --user start mate-utils.target
+  systemctl --user start mate-utils.target
 
 	# use emacs as window manager on all other systems
 	exec dbus-launch --exit-with-session emacsclient -c
