@@ -495,7 +495,7 @@ If there is no entry for today, a new one will be added"
 (add-to-list 'auto-mode-alist '("\\.vbus\\'" . lua-mode))
 (add-to-list 'auto-mode-alist '("\\.devs\\'" . lua-mode))
 (add-to-list 'auto-mode-alist '("\\.scenario\\'", yaml-mode))
-(add-to-list 'auto-mode-alist '(("\\`/tmp/neomutt-" . mail-mode)))
+;(add-to-list 'auto-mode-alist '(("\\`/tmp/neomutt-" . mail-mode)))
 
 ;; save undo tree along with file
 (eval-after-load 'undo-tree-mode
