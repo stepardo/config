@@ -39,9 +39,9 @@
 127.0.0.1 ycombinator.com
 127.0.0.1 news.ycombinator.com
 127.0.0.1 hacker-news.firebaseio.com/
-127.0.0.1 dnn.de
-127.0.0.1 www.dnn.de
-127.0.0.1 m.dnn.de
-127.0.0.1 spiegel.de
-127.0.0.1 www.spiegel.de
-127.0.0.1 m.spiegel.de
+#127.0.0.1 dnn.de
+#127.0.0.1 www.dnn.de
+#127.0.0.1 m.dnn.de
+#127.0.0.1 spiegel.de
+#127.0.0.1 www.spiegel.de
+#127.0.0.1 m.spiegel.de
