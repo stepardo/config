@@ -358,12 +358,12 @@ If there is no entry for today, a new one will be added"
     ))
 
 ; do not load this on my phone
-(use-package projectile
-  :if (not (is-slow-system))
-  :config
-  (progn
-    (projectile-mode t)
-    (setq projectile-completion-system 'ivy)))
+;;(use-package projectile
+;;  :if (not (is-slow-system))
+;;  :config
+;;  (progn
+;;    (projectile-mode t)
+;;    (setq projectile-completion-system 'ivy)))
 
 (use-package terminal-here
   :config
@@ -389,7 +389,6 @@ If there is no entry for today, a new one will be added"
 
 ;; have variables color coded
 (use-package color-identifiers-mode
-  :demand t
   :config
   (global-color-identifiers-mode))
 
@@ -593,6 +592,7 @@ If there is no entry for today, a new one will be added"
 
 ;; cool pdf support
 (use-package pdf-tools
+  :disabled
   :if (not (is-slow-system))
   ;:pin manual ; update manually
   :config
@@ -603,6 +603,7 @@ If there is no entry for today, a new one will be added"
 
 ;; have a browser
 (use-package eww
+  :disabled
   :config
   (progn
     (use-package eww-lnum)
